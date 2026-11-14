@@ -1,0 +1,28 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'Pavv Compendium'
+disableKinds = ['taxonomy', 'term', 'RSS']
+enableRobotsTXT = true
+
+[params]
+  patreonURL = ''
+
+[[menus.main]]
+  name = "Player’s Handbook"
+  pageRef = '/handbook'
+  weight = 10
+
+[[menus.main]]
+  name = 'Atlas of Pavv'
+  pageRef = '/atlas'
+  weight = 20
+
+[[menus.main]]
+  name = 'Dossiers'
+  pageRef = '/dossiers'
+  weight = 30
+
+[[menus.main]]
+  name = 'Support'
+  pageRef = '/support'
+  weight = 40

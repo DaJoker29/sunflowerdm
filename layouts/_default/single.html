@@ -1,0 +1,20 @@
+{{ define "main" }}
+  <article>
+    {{ if .Section }}
+      {{ with .Parent }}<a class="back-link" href="{{ .RelPermalink }}">← {{ .Title }}</a>{{ end }}
+    {{ end }}
+    <header class="intro">
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
+      {{ if and .Section (not .Lastmod.IsZero) }}
+        <p class="updated">Updated <time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "January 2, 2006" }}</time></p>
+      {{ end }}
+    </header>
+    <div class="prose">
+      {{ .Content }}
+      {{ if eq .RelPermalink (relURL "support/") }}
+        {{ with .Site.Params.patreonURL }}<p><a class="button" href="{{ . }}">Support SFDM on Patreon</a></p>{{ end }}
+      {{ end }}
+    </div>
+  </article>
+{{ end }}

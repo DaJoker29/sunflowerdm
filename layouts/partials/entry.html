@@ -1,0 +1,9 @@
+<li>
+  <a class="entry" href="{{ .RelPermalink }}">
+    <span class="entry-copy">
+      <span class="entry-title">{{ .Title }}</span>
+      {{ with .Description }}<span class="entry-description">{{ . }}</span>{{ end }}
+    </span>
+    <span class="entry-arrow" aria-hidden="true">↗</span>
+  </a>
+</li>

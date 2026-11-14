@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <section class="intro">
+    <h1>{{ .Title }}</h1>
+    <div class="lede">{{ .Content }}</div>
+  </section>
+  <ul class="entry-list" aria-label="Compendium sections">
+    {{ range .Sections.ByWeight }}
+      {{ partial "entry.html" . }}
+    {{ end }}
+  </ul>
+{{ end }}

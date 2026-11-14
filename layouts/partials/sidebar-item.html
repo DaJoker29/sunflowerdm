@@ -15,12 +15,12 @@
     <details class="sidebar-submenu" name="sidebar-{{ $item.Parent.RelPermalink }}" data-sidebar-section="{{ $item.RelPermalink }}">
       <summary>{{ if le $level 2 }}{{ partial "sidebar-icon.html" $item }}{{ end }}<span class="sidebar-label">{{ $item.LinkTitle }}</span><span class="sidebar-chevron" aria-hidden="true">›</span></summary>
   {{ else }}
-    <a href="{{ $item.RelPermalink }}"{{ if $active }} aria-current="page"{{ end }}>{{ if le $level 2 }}{{ partial "sidebar-icon.html" $item }}{{ end }}<span class="sidebar-label">{{ $item.LinkTitle }}{{ if ge $level 2 }}{{ partial "sidebar-badge.html" $item }}{{ end }}</span></a>
+    <a href="{{ $item.RelPermalink }}"{{ if $active }} aria-current="page"{{ end }}>{{ if le $level 2 }}{{ partial "sidebar-icon.html" $item }}{{ end }}<span class="sidebar-label">{{ $item.LinkTitle }}</span></a>
   {{ end }}
   {{ with $children.ByWeight }}
     <ul class="sidebar-links{{ if and $disclosure (eq $level 2) }} sidebar-align-label{{ end }}">
       {{ if $disclosure }}
-        <li><a href="{{ $item.RelPermalink }}" aria-label="{{ $item.LinkTitle }} overview"{{ if $active }} aria-current="page"{{ end }}><span class="sidebar-label">Overview{{ partial "sidebar-badge.html" $item }}</span></a></li>
+        <li><a href="{{ $item.RelPermalink }}" aria-label="{{ $item.LinkTitle }} overview"{{ if $active }} aria-current="page"{{ end }}><span class="sidebar-label">Overview</span></a></li>
       {{ end }}
       {{ range . }}
         {{ partial "sidebar-item.html" (dict "item" . "current" $current "level" (add $level 1)) }}
@@ -32,7 +32,7 @@
     {{ if or $active $ancestor }}
       <ul class="sidebar-links sidebar-current-preview{{ if eq $level 2 }} sidebar-align-label{{ end }}">
         <li>
-          <a href="{{ $current.RelPermalink }}" aria-current="page"{{ if $active }} aria-label="{{ $item.LinkTitle }} overview"{{ end }}><span class="sidebar-label">{{ if $active }}Overview{{ else }}{{ $current.LinkTitle }}{{ end }}{{ partial "sidebar-badge.html" $current }}</span></a>
+          <a href="{{ $current.RelPermalink }}" aria-current="page"{{ if $active }} aria-label="{{ $item.LinkTitle }} overview"{{ end }}><span class="sidebar-label">{{ if $active }}Overview{{ else }}{{ $current.LinkTitle }}{{ end }}</span></a>
         </li>
       </ul>
     {{ end }}

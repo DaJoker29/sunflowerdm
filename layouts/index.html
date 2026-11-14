@@ -23,11 +23,21 @@
     </section>
     <section class="home-panel" aria-labelledby="updates-heading">
       <div class="panel-heading"><h2 id="updates-heading">Recently Updated</h2></div>
-      {{ $updated := where .Site.Pages "Params.lastmod" "ne" nil }}
-      {{ with $updated.ByLastmod.Reverse }}
+      {{ $updated := slice }}
+      {{ range .Site.Pages }}
+        {{ if and (not .IsHome) (not .Draft) }}
+          {{ $page := . }}
+          {{ with .GitInfo }}
+            {{ if partial "is-recent-commit.html" .CommitDate }}
+              {{ $updated = $updated | append (dict "page" $page "date" .CommitDate "timestamp" .CommitDate.Unix) }}
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      {{ end }}
+      {{ with $updated }}
         <ul class="entry-list update-list">
-          {{ range first 4 . }}
-            <li><a href="{{ .RelPermalink }}"><span>{{ .Title }}</span><time datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "Jan 2, 2006" }}</time></a></li>
+          {{ range first 4 (sort . "timestamp" "desc") }}
+            <li><a href="{{ .page.RelPermalink }}"><span>{{ .page.LinkTitle }}</span><time datetime="{{ .date.Format "2006-01-02" }}">{{ .date.Format "Jan 2, 2006" }}</time></a></li>
           {{ end }}
         </ul>
       {{ else }}

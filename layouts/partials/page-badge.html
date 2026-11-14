@@ -1,0 +1,13 @@
+{{ with .GitInfo }}
+
+	{{ if partial "is-recent-commit.html" .CommitDate }}
+		{{/* Hugo 0.148 added per-file Git ancestry to the template API. */}}
+		{{ $version := split (string hugo.Version) "." }}
+		{{ $hasAncestry := or (gt (int (index $version 0)) 0) (ge (int (index $version 1)) 148) }}
+		{{ if and $hasAncestry (not .Parent) }}
+			<span class="page-badge page-badge-new">New</span>
+		{{ else }}
+			<span class="page-badge">Updated</span>
+		{{ end }}
+	{{ end }}
+{{ end }}

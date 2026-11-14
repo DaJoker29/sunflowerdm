@@ -162,22 +162,6 @@ a:focus-visible, select:focus-visible { outline: 2px solid var(--gold-light); ou
   font-weight: 700;
 }
 
-.sidebar-badge {
-  display: inline-block;
-  margin-inline-start: .35rem;
-  padding: .08rem .4rem;
-  border-radius: 999px;
-  background: var(--sage);
-  color: var(--forest);
-  font-size: .72rem;
-  font-weight: 700;
-  vertical-align: .08em;
-  white-space: nowrap;
-}
-
-.sidebar-badge-new { background: var(--gold); }
-.site-navigation [aria-current="page"] .sidebar-badge { background: var(--forest); color: var(--sage-light); }
-
 .sidebar-submenu[open] + .sidebar-current-preview { display: none; }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -269,6 +253,20 @@ a:focus-visible, select:focus-visible { outline: 2px solid var(--gold-light); ou
 .site-main { flex: 1; padding-block: clamp(2rem, 5vw, 4.5rem); }
 .site-main.home-main { width: 100%; padding-block: 0 3rem; }
 .intro { margin-bottom: 2rem; }
+
+.page-badge {
+  display: inline-block;
+  margin-block-start: .65rem;
+  padding: .15rem .55rem;
+  border-radius: 999px;
+  background: var(--sage);
+  color: var(--forest);
+  font: 700 .8rem/1.4 var(--interface);
+}
+
+.page-badge-new { background: var(--gold); }
+
+
 h1, h2, h3, h4, h5, h6 { color: var(--gold); font-family: var(--body); font-weight: 400; line-height: 1.12; }
 h1 { margin: 0; font-size: clamp(2.7rem, 7vw, 5rem); letter-spacing: -.045em; overflow-wrap: break-word; }
 h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); }

@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <header class="intro"><h1>{{ .Title }}</h1></header>
+  <header class="intro"><h1>{{ .Title }}</h1>{{ partial "page-badge.html" . }}</header>
   {{ $games := where .Site.Pages "Params.payment" true }}
   {{ with $games.ByWeight }}
     <div class="payment-picker">

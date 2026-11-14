@@ -1,0 +1,2 @@
+{{ $age := sub now.Unix .Unix }}
+{{ return (and (ge $age 0) (le $age (mul 14 86400))) }}

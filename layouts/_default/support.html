@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <header class="intro"><h1>{{ .Title }}</h1></header>
+  <header class="intro"><h1>{{ .Title }}</h1>{{ partial "page-badge.html" . }}</header>
   <div class="prose">
     {{ .Content }}
     {{ with .Site.Params.patreonURL }}<p><a class="button" href="{{ . }}">Support SFDM on Patreon</a></p>{{ end }}

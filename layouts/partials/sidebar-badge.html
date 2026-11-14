@@ -1,0 +1,13 @@
+{{ with .GitInfo }}
+  {{ $age := sub now.Unix .CommitDate.Unix }}
+  {{ if and (ge $age 0) (le $age (mul 14 86400)) }}
+    {{/* Hugo 0.148 added per-file Git ancestry to the template API. */}}
+    {{ $version := split (string hugo.Version) "." }}
+    {{ $hasAncestry := or (gt (int (index $version 0)) 0) (ge (int (index $version 1)) 148) }}
+    {{ if and $hasAncestry (not .Parent) }}
+      <span class="sidebar-badge sidebar-badge-new">New</span>
+    {{ else }}
+      <span class="sidebar-badge">Recently Updated</span>
+    {{ end }}
+  {{ end }}
+{{ end }}

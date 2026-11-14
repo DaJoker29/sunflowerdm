@@ -1,0 +1,22 @@
+<div class="search-bar" role="search" hidden>
+  <div class="search-field">
+    <span class="search-icon" aria-hidden="true"></span>
+    <input id="search-query" type="text" inputmode="search" aria-label="Search" aria-controls="site-search" placeholder="Search" autocomplete="off">
+    <kbd class="search-shortcut" aria-hidden="true"></kbd>
+  </div>
+  <div id="site-search" class="search-palette" data-index="{{ partialCached "search-index.html" . .Site.Language.Lang }}" hidden>
+    <div class="search-suggestions" aria-labelledby="search-suggestions-title">
+      <p id="search-suggestions-title">Suggested filters</p>
+      <ul>
+        <li><button type="button" data-search-filter="portal:players"><code>portal:players</code><span>Search the Player Portal</span></button></li>
+        <li><button type="button" data-search-filter="portal:dm"><code>portal:dm</code><span>Search the DM Portal</span></button></li>
+        <li><button type="button" data-search-filter="section:Pavv"><code>section:Pavv</code><span>Search a setting or section</span></button></li>
+        <li><button type="button" data-search-filter="type:action"><code>type:action</code><span>Find commands</span></button></li>
+        <li><button type="button" data-search-filter="updated:30d"><code>updated:30d</code><span>Find recent changes</span></button></li>
+      </ul>
+    </div>
+    <p class="search-status" role="status" id="search-status"></p>
+    <ul class="search-results" aria-label="Search results"></ul>
+    <button type="button" id="search-more" hidden>Show more results</button>
+  </div>
+</div>

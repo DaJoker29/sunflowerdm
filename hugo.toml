@@ -1,28 +1,38 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-us'
-title = 'Pavv Compendium'
+title = 'SunflowerDM'
 disableKinds = ['taxonomy', 'term', 'RSS']
 enableRobotsTXT = true
+enableGitInfo = true
+
+[frontmatter]
+  lastmod = ['lastmod', 'date', 'publishDate', 'expiryDate']
 
 [params]
   patreonURL = ''
+  repositoryURL = 'https://github.com/DaJoker29/sunflowerdm'
 
 [[menus.main]]
-  name = "Player’s Handbook"
-  pageRef = '/handbook'
+  name = 'Player Portal'
+  pageRef = '/players'
   weight = 10
 
 [[menus.main]]
-  name = 'Atlas of Pavv'
-  pageRef = '/atlas'
+  name = 'DM Portal'
+  pageRef = '/dm'
   weight = 20
 
 [[menus.main]]
-  name = 'Dossiers'
-  pageRef = '/dossiers'
+  name = 'Open Games'
+  pageRef = '/games'
   weight = 30
+
+[[menus.main]]
+  name = 'About'
+  pageRef = '/about'
+  weight = 40
 
 [[menus.main]]
   name = 'Support'
   pageRef = '/support'
-  weight = 40
+  weight = 50

@@ -1,6 +1,6 @@
 +++
-title = 'Pavv Compendium'
-description = 'The public player reference for campaigns set in Pavv.'
+title = "SunflowerDM"
+description = "Campaign worlds, player guides, and tools for your D&D table."
 +++
 
-Find the rules you’ll use at the table, explore the Atlas of Pavv, and read the latest versions of the dossiers.
+Campaign worlds, player guides, and tools for your D&D table.

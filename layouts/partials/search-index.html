@@ -1,0 +1,45 @@
+{{ $entries := slice }}
+{{ range .Site.Pages }}
+  {{ if and (not .IsHome) (not .Draft) (ne .Params.search false) }}
+    {{ $section := .Section }}
+    {{ $portal := "Site" }}
+    {{ if $section }}
+      {{ with .Site.GetPage (printf "/%s" $section) }}
+        {{ $portal = .Title }}
+      {{ end }}
+    {{ end }}
+    {{ $sections := slice }}
+    {{ range .Ancestors.Reverse }}
+      {{ if and .IsSection (not .Parent.IsHome) }}
+        {{ $sections = $sections | append (dict "title" .Title) }}
+      {{ end }}
+    {{ end }}
+    {{ if and .IsSection (not .Parent.IsHome) }}
+      {{ $sections = $sections | append (dict "title" .Title) }}
+    {{ end }}
+    {{ $updated := "" }}
+    {{ with .Lastmod }}{{ if not .IsZero }}{{ $updated = .Format "2006-01-02" }}{{ end }}{{ end }}
+    {{ with .GitInfo }}{{ $updated = .CommitDate.Format "2006-01-02" }}{{ end }}
+    {{ $entries = $entries | append (dict
+      "title" .LinkTitle "description" .Description "text" (.Plain | htmlUnescape)
+      "url" .RelPermalink "portal" $portal "sections" $sections
+      "kind" (cond .IsSection "Section" "Page") "updated" $updated
+    ) }}
+  {{ end }}
+{{ end }}
+{{ $actions := slice
+  (dict "page" "/payment" "title" "Make a Payment" "description" "Choose the game you’re paying for." "keywords" "pay fees checkout stripe")
+  (dict "page" "/games" "title" "Find an Open Game" "description" "See which games are looking for players." "keywords" "join recruiting sign up startplaying roll20")
+  (dict "page" "/support" "title" "Support SunflowerDM" "description" "Find the Patreon support page." "keywords" "patreon donate contribute")
+}}
+{{ range $action := $actions }}
+  {{ with $.Site.GetPage $action.page }}
+    {{ if and (not .Draft) (ne .Params.search false) }}
+      {{ $entries = $entries | append (dict
+        "title" $action.title "description" $action.description "text" $action.keywords
+        "url" .RelPermalink "portal" "Site" "sections" slice "kind" "Action" "updated" ""
+      ) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return (resources.FromString "search/index.json" (jsonify $entries)).RelPermalink }}

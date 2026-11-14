@@ -1,5 +1,6 @@
 +++
 title = 'Atlas of Pavv'
 description = 'Maps, regions, and places in Pavv.'
-weight = 20
+weight = 30
+aliases = ['/atlas/']
 +++

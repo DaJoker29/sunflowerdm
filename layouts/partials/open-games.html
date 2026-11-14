@@ -1,0 +1,22 @@
+{{ $games := where .site.Pages "Params.recruiting" true }}
+{{ $games = $games.ByWeight }}
+{{ if .limit }}{{ $games = first .limit $games }}{{ end }}
+{{ with $games }}
+	<ul class="game-list">
+		{{ range . }}
+			<li>
+				<h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+				{{ with .Params.pitch }}<p>{{ . }}</p>{{ end }}
+				{{ with .Params.schedule }}<p>{{ . }}</p>{{ end }}
+				{{ if or .Params.startPlayingURL .Params.roll20URL }}
+					<div class="actions">
+						{{ with .Params.startPlayingURL }}<a href="{{ . }}">View on StartPlaying ›</a>{{ end }}
+						{{ with .Params.roll20URL }}<a href="{{ . }}">View on Roll20 ›</a>{{ end }}
+					</div>
+				{{ end }}
+			</li>
+		{{ end }}
+	</ul>
+{{ else }}
+	<p class="empty">No games are listed as recruiting right now.</p>
+{{ end }}

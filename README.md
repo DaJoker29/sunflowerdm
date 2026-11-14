@@ -1,26 +1,19 @@
-# Pavv Compendium
+# SunflowerDM
 
-A Hugo starter for the public, player-facing reference to Pavv. It uses Markdown and its own layouts. Hugo 0.123.8 was used to verify the starter.
+A Hugo site for SunflowerDM’s public D&D campaigns, tools, and games.
 
-## Preview locally
+## Preview in VS Code
 
-Open a terminal in this folder and run:
+Open this folder and run `hugo server` in the integrated terminal. Open the address Hugo prints. Add `--buildDrafts` to preview drafts.
 
-```powershell
-hugo server
-```
+The footer uses Hugo’s Git info to show the last commit that touched each page’s source file. Commit new pages to show their footer date and hash. For deployment, build with `hugo` from a checkout with full Git history, then deploy the generated `public/` directory after setting `baseURL` in `hugo.toml`.
 
-Open the address Hugo prints. Run `hugo server --buildDrafts` to include drafts in your local preview.
+## Update the site
 
-## Add content
+- `content/players/pavv/` contains the Start Here page, Handbook, Atlas, Dossiers, and Bestiary. Set `weight` to order entries and add `lastmod = YYYY-MM-DD` to surface a page under Recently Updated.
+- `content/players/campaigns/` contains campaign intros and guides. In a campaign’s front matter under `[params]`, set `recruiting = true` to list it in Open Games. Add `pitch`, `schedule`, `startPlayingURL`, and/or `roll20URL` as available.
+- A campaign with `payment = true` appears in Make a Payment. Set its `paymentURL` to the hosted checkout link when ready. Recruiting and payment are configured independently.
+- `content/dm/` contains sections for generators, roll tables, and statblocks.
+- Set `patreonURL` in `hugo.toml` to show the Patreon button.
 
-- `content/handbook/` holds chapters of the Player’s Handbook. Give chapters a `weight` to set their reading order.
-- `content/atlas/` holds Atlas entries. Use an `index.md` inside an entry folder to keep its maps and other images beside the text.
-- `content/dossiers/` holds one page per dossier. Update the original page and its `lastmod` date when you revise it.
-- `content/support.md` holds the support page. Set `patreonURL` in `hugo.toml` to enable the Patreon button.
-
-For example, `hugo new content dossiers/entry-name/index.md` creates a draft. Change the title, add the player-facing text, and set `draft = false` when it’s ready. Keep DM-only notes outside the site source.
-
-## Publish when ready
-
-Set `baseURL` in `hugo.toml` to the full public address with a trailing slash. Run `hugo` and deploy the generated `public/` folder with a static host. You can use a subdomain first and update the base URL when you move. If players already use the old address, configure redirects there when you switch.
+New entries can start with `hugo new content players/pavv/dossiers/entry-name/index.md`. Keep maps and other images beside the entry’s `index.md`. Keep private DM notes outside the site source.

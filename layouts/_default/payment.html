@@ -1,0 +1,23 @@
+{{ define "main" }}
+  <header class="intro"><h1>{{ .Title }}</h1></header>
+  {{ $games := where .Site.Pages "Params.payment" true }}
+  {{ with $games.ByWeight }}
+    <div class="payment-picker">
+      <label for="payment-game">Which game are you paying for?</label>
+      <select id="payment-game" aria-describedby="payment-status">
+        <option value="">Select a game</option>
+        {{ range $index, $game := . }}
+          <option value="{{ $index }}">{{ $game.Title }}</option>
+        {{ end }}
+      </select>
+      <p id="payment-status" role="status"></p>
+      {{ range $index, $game := . }}
+        {{ with $game.Params.paymentURL }}<a hidden class="button" data-payment-game="{{ $index }}" href="{{ . }}">Continue to checkout ›</a>{{ end }}
+      {{ end }}
+      <noscript><p>The game selector requires JavaScript.</p></noscript>
+    </div>
+    <script src="{{ "js/payment.js" | relURL }}" defer></script>
+  {{ else }}
+    <p class="empty">No games are listed for payment yet.</p>
+  {{ end }}
+{{ end }}

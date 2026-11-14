@@ -1,14 +1,16 @@
 {{ define "main" }}
+  {{ partial "breadcrumb.html" . }}
   <header class="intro">
     <h1>{{ .Title }}</h1>
     {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
   </header>
   {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
-  {{ with .Pages.ByWeight }}
+  {{ $entries := where .RegularPages.ByWeight "Params.sidebar" "ne" true }}
+  {{ if $entries }}
     <ul class="entry-list" aria-label="Entries">
-      {{ range . }}{{ partial "entry.html" . }}{{ end }}
+      {{ range $entries }}{{ partial "entry.html" . }}{{ end }}
     </ul>
-  {{ else }}
+  {{ else if and (not .Pages) (not .Content) }}
     <p class="empty">Entries will appear here as they’re published.</p>
   {{ end }}
 {{ end }}

@@ -6,7 +6,6 @@
     {{ end }}
     <div class="hero-copy">
       <h1>{{ .Title }}</h1>
-      <div class="lede">{{ .Content }}</div>
       <div class="actions">
         {{ with .Site.GetPage "/players" }}<a class="button" href="{{ .RelPermalink }}">Player Portal <span aria-hidden="true">›</span></a>{{ end }}
         {{ with .Site.GetPage "/dm" }}<a class="button secondary" href="{{ .RelPermalink }}">DM Portal <span aria-hidden="true">›</span></a>{{ end }}
@@ -25,7 +24,7 @@
       <div class="panel-heading"><h2 id="updates-heading">Recently Updated</h2></div>
       {{ $updated := slice }}
       {{ range .Site.Pages }}
-        {{ if and (not .IsHome) (not .Draft) }}
+        {{ if and (not .IsHome) (not .Draft) (ne .Params.sidebarOverview false) }}
           {{ $page := . }}
           {{ with .GitInfo }}
             {{ if partial "is-recent-commit.html" .CommitDate }}

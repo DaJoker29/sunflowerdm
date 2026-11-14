@@ -2,7 +2,6 @@
   {{ partial "breadcrumb.html" . }}
   <header class="intro">
     <h1>{{ .Title }}</h1>{{ partial "page-badge.html" . }}
-    {{ with .Description }}<p class="lede">{{ . }}</p>{{ end }}
   </header>
   {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
   {{ $entries := where .RegularPages.ByWeight "Params.sidebar" "ne" true }}

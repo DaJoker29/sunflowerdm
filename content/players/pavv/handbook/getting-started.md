@@ -4,6 +4,7 @@ linkTitle = "Getting Started"
 description = "An introduction to Pavv, its wilderness, and the Six Rooted Truths."
 weight = 10
 sidebar = true
+aliases = ['/handbook/', '/players/pavv/handbook/']
 +++
 
 > ***In Pavv, the still die slowly and the reckless die loudly—only the wise live long.***  

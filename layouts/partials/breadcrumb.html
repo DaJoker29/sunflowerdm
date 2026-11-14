@@ -3,7 +3,7 @@
     <nav class="breadcrumbs" aria-label="Breadcrumb">
       <ol>
         {{ range .Ancestors.Reverse }}
-          <li><a href="{{ .RelPermalink }}">{{ if .IsHome }}Home{{ else }}{{ .Title }}{{ end }}</a></li>
+          <li>{{ if eq .Params.sidebarOverview false }}{{ .Title }}{{ else }}<a href="{{ .RelPermalink }}">{{ if .IsHome }}Home{{ else }}{{ .Title }}{{ end }}</a>{{ end }}</li>
         {{ end }}
         <li aria-current="page">{{ .Title }}</li>
       </ol>

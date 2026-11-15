@@ -3,6 +3,7 @@ title = "Start Here"
 description = "The adventure begins..."
 weight = 1
 sidebar = true
+aliases = ['/players/']
 +++
 
 ## Welcome Adventurer

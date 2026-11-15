@@ -12,9 +12,10 @@
 {{ $portal := and (eq $level 1) (in (slice "/players" "/dm") $item.Path) }}
 {{ $disclosure := or $portal (and (ge $level 2) $children) }}
 {{ $hasOverview := eq $item.Params.sidebarOverview true }}
+{{ $containsCurrent := or $ancestor (and $active $hasOverview) }}
 <li>
 	{{ if $disclosure }}
-		<details class="sidebar-submenu"{{ if not $portal }} name="sidebar-{{ $item.Parent.RelPermalink | default $item.Parent.Path }}"{{ end }} data-sidebar-section="{{ $item.RelPermalink | default $item.Path }}">
+		<details class="sidebar-submenu"{{ if $containsCurrent }} open data-sidebar-current-branch{{ end }}{{ if not $portal }} name="sidebar-{{ $item.Parent.RelPermalink | default $item.Parent.Path }}"{{ end }} data-sidebar-section="{{ $item.RelPermalink | default $item.Path }}">
 			<summary>{{ if $portal }}{{ partial "sidebar-icon.html" $item }}{{ end }}<span class="sidebar-label">{{ $item.LinkTitle }}</span><span class="sidebar-chevron" aria-hidden="true"></span></summary>
 	{{ else }}
 		<a href="{{ $item.RelPermalink }}"{{ if $active }} aria-current="page"{{ end }}>{{ if eq $level 1 }}{{ partial "sidebar-icon.html" $item }}{{ end }}<span class="sidebar-label">{{ $item.LinkTitle }}</span></a>
@@ -31,7 +32,7 @@
 	{{ end }}
 	{{ if $disclosure }}
 	</details>
-	{{ if or (and $active $hasOverview) $ancestor }}
+	{{ if $containsCurrent }}
 		<ul class="sidebar-links sidebar-current-preview">
 			<li>
 				<a href="{{ $current.RelPermalink }}" aria-current="page"{{ if $active }} aria-label="{{ $item.LinkTitle }} overview"{{ end }}><span class="sidebar-label">{{ if $active }}Overview{{ else }}{{ $current.LinkTitle }}{{ end }}</span></a>

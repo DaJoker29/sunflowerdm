@@ -69,7 +69,9 @@ a:focus-visible, select:focus-visible { outline: 2px solid var(--gold-light); ou
 .site-navigation {
   --sidebar-top-icon-size: 1.125rem;
   --sidebar-icon-gap: .45rem;
-  --sidebar-branch: rgb(183 206 158 / .38);
+  --sidebar-branch: #465944;
+  --sidebar-row-size: 2.2rem;
+  --sidebar-branch-radius: .65rem;
   color: var(--gold-muted);
   margin-top: 1rem;
   font-family: var(--interface);
@@ -99,12 +101,23 @@ a:focus-visible, select:focus-visible { outline: 2px solid var(--gold-light); ou
 .sidebar-links .sidebar-links > li:last-child::before { content: none; }
 
 .sidebar-links .sidebar-links > li::after {
-  inset-block-start: 0;
-  width: .65rem;
-  height: .98em;
+  box-sizing: border-box;
+  inset-block-start: calc(var(--sidebar-row-size) / 2 - var(--sidebar-branch-radius));
+  inline-size: .7rem;
+  block-size: var(--sidebar-branch-radius);
   border-inline-start: 1px solid var(--sidebar-branch);
   border-block-end: 1px solid var(--sidebar-branch);
-  border-end-start-radius: .35rem;
+  border-end-start-radius: var(--sidebar-branch-radius);
+}
+
+.sidebar-links .sidebar-links > li:last-child::after {
+  inset-block-start: 0;
+  block-size: calc(var(--sidebar-row-size) / 2);
+}
+
+.sidebar-links .sidebar-links > li > a,
+.sidebar-links .sidebar-links > li > details > summary {
+  min-block-size: var(--sidebar-row-size);
 }
 .sidebar-links a {
   display: flex;
@@ -249,6 +262,12 @@ a:focus-visible, select:focus-visible { outline: 2px solid var(--gold-light); ou
   display: flex;
   flex-direction: column;
   min-width: 0;
+  background:
+    url("paper-grain.svg") repeat,
+    radial-gradient(ellipse min(75vw, 72rem) clamp(24rem, 58vw, 52rem) at 50% 10rem,
+      rgb(76 117 82 / .45), transparent),
+    var(--forest);
+  background-blend-mode: soft-light, normal, normal;
 }
 
 .site-main, .site-footer, .hero-copy, .home-grid {
@@ -264,6 +283,9 @@ a:focus-visible, select:focus-visible { outline: 2px solid var(--gold-light); ou
 }
 
 .wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
   font: 400 1.75rem/1 var(--wordmark);
   letter-spacing: .025em;
   text-decoration: none;
@@ -298,21 +320,15 @@ h1 { margin: 0; font-size: clamp(2.7rem, 7vw, 5rem); letter-spacing: -.045em; ov
 h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
 
 .home-hero {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  background: var(--forest);
   display: grid;
   align-items: center;
-  min-height: clamp(23rem, 42vw, 31rem);
-  padding-block: clamp(1.5rem, 6vw, 5rem);
+  padding-block: clamp(2rem, 6vw, 4.5rem) clamp(1.75rem, 5vw, 3.5rem);
 }
 
-.hero-image { position: absolute; z-index: -2; inset: 0 0 0 auto; width: min(76%, 53rem); height: 100%; object-fit: cover; object-position: center; }
-.home-hero::before { content: ''; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, var(--forest) 22%, rgb(20 35 27 / .92) 36%, transparent 80%); }
-
-.hero-copy { position: relative; }
-.home-hero h1 { font-size: clamp(2.35rem, 9vw, 6.5rem); }
+.home-hero h1 { font-size: clamp(2.35rem, 7vw, 5.25rem); }
+.hero-intro { max-width: 55ch; margin-block-start: 1rem; font-size: 1.125rem; }
+.hero-intro p { margin-block: 0; }
+.hero-intro p + p { margin-block-start: .75rem; }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; margin-top: 1.5rem; }
 .button {
   display: inline-block;
@@ -345,7 +361,7 @@ h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
 .home-hero .button.secondary:hover { background: var(--sage-light); }
 .home-hero .button.secondary:focus-visible { outline-color: var(--sage); }
 
-.home-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.5rem, 5vw, 4rem); margin-top: clamp(1.5rem, 4vw, 3rem); }
+.home-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1.5rem, 5vw, 4rem); }
 .home-panel { padding-top: 1rem; border-top: 1px solid var(--line); }
 .panel-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .5rem 1rem; }
 .panel-heading h2 { margin: 0; }
@@ -370,6 +386,14 @@ ul.update-list { margin-top: 1rem; border-top: 0; }
 .entry-list li, .game-list li { border-bottom: 1px solid var(--line); }
 .game-list { margin-top: 1rem; }
 .game-list li { padding: .8rem 0 1rem; }
+.game-image {
+  display: block;
+  width: min(100%, 36rem);
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: .35rem;
+  margin-block-end: .65rem;
+}
 .game-list h3 { margin: 0; font-size: 1.5rem; }
 .game-list p, .game-list .actions { margin: .5rem 0 0; }
 
@@ -416,6 +440,4 @@ ul.update-list { margin-top: 1rem; border-top: 0; }
 @media (max-width: 44rem) {
   .site-main, .site-footer, .hero-copy, .home-grid { width: calc(100% - 2rem); }
   .home-grid { grid-template-columns: 1fr; }
-  .hero-image { width: 100%; object-position: 65% center; }
-  .home-hero::before { background: linear-gradient(90deg, rgb(20 35 27 / .98), rgb(20 35 27 / .9) 56%, rgb(20 35 27 / .62)); }
 }

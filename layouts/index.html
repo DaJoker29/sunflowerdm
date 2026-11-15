@@ -1,14 +1,11 @@
 {{ define "main" }}
   <section class="home-hero">
-    {{ with resources.Get "images/sunflower.png" }}
-      {{ $hero := .Resize "1400x webp q84" }}
-      <img class="hero-image" src="{{ $hero.RelPermalink }}" alt="" width="{{ $hero.Width }}" height="{{ $hero.Height }}" fetchpriority="high">
-    {{ end }}
     <div class="hero-copy">
-      <h1>{{ .Title }}</h1>
+      <h1>{{ .Params.heroHeading | default .Title }}</h1>
+      {{ with .Content }}<div class="hero-intro">{{ . }}</div>{{ end }}
       <div class="actions">
-        {{ with .Site.GetPage "/players" }}<a class="button" href="{{ .RelPermalink }}">Player Portal <span aria-hidden="true">›</span></a>{{ end }}
-        {{ with .Site.GetPage "/dm" }}<a class="button secondary" href="{{ .RelPermalink }}">DM Portal <span aria-hidden="true">›</span></a>{{ end }}
+        {{ with .Site.GetPage "/players/start-here" }}<a class="button" href="{{ .RelPermalink }}">Player Portal <span aria-hidden="true">›</span></a>{{ end }}
+        {{ with .Site.GetPage "/dm/start-here" }}<a class="button secondary" href="{{ .RelPermalink }}">DM Portal <span aria-hidden="true">›</span></a>{{ end }}
       </div>
     </div>
   </section>

@@ -6,13 +6,21 @@ function restoreSidebar() {
   try {
     saved = JSON.parse(sessionStorage.getItem(storageKey));
   } catch {
-    return;
+    // The current branch can still open when storage is unavailable.
   }
-  if (!Array.isArray(saved)) return;
 
-  const openSections = new Set(saved);
+  if (Array.isArray(saved)) {
+    const openSections = new Set(saved);
+    for (const submenu of submenus) {
+      submenu.open = openSections.has(submenu.dataset.sidebarSection);
+    }
+  }
+
+  // Open the current branch last so it wins over any saved sibling.
   for (const submenu of submenus) {
-    submenu.open = openSections.has(submenu.dataset.sidebarSection);
+    if (submenu.hasAttribute("data-sidebar-current-branch")) {
+      submenu.open = true;
+    }
   }
 }
 

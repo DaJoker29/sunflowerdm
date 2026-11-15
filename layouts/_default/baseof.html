@@ -26,7 +26,7 @@
 			<footer class="site-footer">
 				{{ $repo := .Site.Params.repositoryURL }}
 				{{ with .GitInfo }}
-					<span>Last updated: <time datetime="{{ .CommitDate.Format "2006-01-02" }}">{{ .CommitDate.Format "Jan 02, 2006" }}</time> • <a href="{{ $repo }}/commit/{{ .Hash }}">{{ .AbbreviatedHash }}</a> • <span>{{ .Subject }}</span></span>
+					<span>Last updated: <time datetime="{{ .CommitDate.Format "2006-01-02" }}">{{ .CommitDate.Format "Jan 02, 2006" }}</time> • <a href="{{ $repo }}/commit/{{ .Hash }}">{{ .AbbreviatedHash }}</a></span>
 				{{ end }}
 			</footer>
 		</div>

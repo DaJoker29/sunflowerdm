@@ -5,37 +5,38 @@
 {{ $ancestor := $current.IsDescendant $item }}
 {{ $children := where $item.Pages.ByWeight "IsSection" true }}
 {{ range $item.Pages.ByWeight }}
-  {{ if and .IsPage .Params.sidebar }}
-    {{ $children = $children | append . }}
-  {{ end }}
+	{{ if and .IsPage .Params.sidebar }}
+		{{ $children = $children | append . }}
+	{{ end }}
 {{ end }}
-{{ $disclosure := and (ge $level 2) $children }}
+{{ $portal := and (eq $level 1) (in (slice "/players" "/dm") $item.Path) }}
+{{ $disclosure := or $portal (and (ge $level 2) $children) }}
 {{ $hasOverview := eq $item.Params.sidebarOverview true }}
 <li>
-  {{ if $disclosure }}
-    <details class="sidebar-submenu" name="sidebar-{{ $item.Parent.RelPermalink | default $item.Parent.Path }}" data-sidebar-section="{{ $item.RelPermalink | default $item.Path }}">
-      <summary><span class="sidebar-label">{{ $item.LinkTitle }}</span><span class="sidebar-chevron" aria-hidden="true"></span></summary>
-  {{ else }}
-    <a href="{{ $item.RelPermalink }}"{{ if $active }} aria-current="page"{{ end }}>{{ if eq $level 1 }}{{ partial "sidebar-icon.html" $item }}{{ end }}<span class="sidebar-label">{{ $item.LinkTitle }}</span></a>
-  {{ end }}
-  {{ with $children.ByWeight }}
-    <ul class="sidebar-links">
-      {{ if and $disclosure $hasOverview }}
-        <li><a href="{{ $item.RelPermalink }}" aria-label="{{ $item.LinkTitle }} overview"{{ if $active }} aria-current="page"{{ end }}><span class="sidebar-label">Overview</span></a></li>
-      {{ end }}
-      {{ range . }}
-        {{ partial "sidebar-item.html" (dict "item" . "current" $current "level" (add $level 1)) }}
-      {{ end }}
-    </ul>
-  {{ end }}
-  {{ if $disclosure }}
-    </details>
-    {{ if or (and $active $hasOverview) $ancestor }}
-      <ul class="sidebar-links sidebar-current-preview">
-        <li>
-          <a href="{{ $current.RelPermalink }}" aria-current="page"{{ if $active }} aria-label="{{ $item.LinkTitle }} overview"{{ end }}><span class="sidebar-label">{{ if $active }}Overview{{ else }}{{ $current.LinkTitle }}{{ end }}</span></a>
-        </li>
-      </ul>
-    {{ end }}
-  {{ end }}
+	{{ if $disclosure }}
+		<details class="sidebar-submenu"{{ if not $portal }} name="sidebar-{{ $item.Parent.RelPermalink | default $item.Parent.Path }}"{{ end }} data-sidebar-section="{{ $item.RelPermalink | default $item.Path }}">
+			<summary>{{ if $portal }}{{ partial "sidebar-icon.html" $item }}{{ end }}<span class="sidebar-label">{{ $item.LinkTitle }}</span><span class="sidebar-chevron" aria-hidden="true"></span></summary>
+	{{ else }}
+		<a href="{{ $item.RelPermalink }}"{{ if $active }} aria-current="page"{{ end }}>{{ if eq $level 1 }}{{ partial "sidebar-icon.html" $item }}{{ end }}<span class="sidebar-label">{{ $item.LinkTitle }}</span></a>
+	{{ end }}
+	{{ with $children.ByWeight }}
+		<ul class="sidebar-links">
+			{{ if and $disclosure $hasOverview }}
+				<li><a href="{{ $item.RelPermalink }}" aria-label="{{ $item.LinkTitle }} overview"{{ if $active }} aria-current="page"{{ end }}><span class="sidebar-label">Overview</span></a></li>
+			{{ end }}
+			{{ range . }}
+				{{ partial "sidebar-item.html" (dict "item" . "current" $current "level" (add $level 1)) }}
+			{{ end }}
+		</ul>
+	{{ end }}
+	{{ if $disclosure }}
+	</details>
+	{{ if or (and $active $hasOverview) $ancestor }}
+		<ul class="sidebar-links sidebar-current-preview">
+			<li>
+				<a href="{{ $current.RelPermalink }}" aria-current="page"{{ if $active }} aria-label="{{ $item.LinkTitle }} overview"{{ end }}><span class="sidebar-label">{{ if $active }}Overview{{ else }}{{ $current.LinkTitle }}{{ end }}</span></a>
+			</li>
+		</ul>
+	{{ end }}
+	{{ end }}
 </li>

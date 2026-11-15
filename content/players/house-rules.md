@@ -1,7 +1,6 @@
 +++
 title = "House Rules"
-description = "Variant rules, advancement, and overland travel."
-weight = 40
+description = "Variant rules, shields, advancement, and overland travel."
 sidebar = true
 +++
 
@@ -24,6 +23,50 @@ While Pavv follows the core rules of 5th Edition (2014 & 2024), some mechanics h
 - The original attack roll must be equal to or greater than the AC of the secondary target.
 
 ***Per-Session Inspiration.*** At the start of each session, players choose one character to gain Inspiration until the end of the session. Other players may choose for their characters to gain Inspiration during play; however, each time they do so, the DM gains a use of Inspiration as well. All Inspirations are lost at the end of each session.
+
+## Shields
+
+I’ve adopted **u/bornasbrooke’s shield rules wholesale** for Pavv. All shield options, stats, and mechanics below come from their contribution to [“Fixing shields in 5e?” on r/DnDHomebrew](https://www.reddit.com/r/DnDHomebrew/comments/1xa3img/comment/phtvszs/). The wording and layout have been formatted for this handbook.
+
+### Shield Types
+
+| Shield | AC Bonus | Strength | Stealth | Properties | Weight | Cost |
+| --- | ---: | --- | --- | --- | ---: | ---: |
+| Buckler (bossed) | +1 | — | — | Bash, Hook, Interpose, Light, Riposte | 2 lb. | 3 gp |
+| Buckler (strapped) | +1 | — | — | Block, Free-Handed, Hook, Riposte | 3 lb. | 10 gp |
+| Strapped Round Shield | +2 | — | — | Hook, Interpose, Riposte, Strapped | 4 lb. | 4 gp |
+| Heater Shield | +2 | — | — | Bash, Block, Hook, Riposte, Strapped | 5 lb. | 15 gp |
+| Center-Boss Round Shield | +3 | Str 13 | — | Bash, Block, Mounted, Wall | 7 lb. | 8 gp |
+| Kite Shield | +2 | Str 11 | Disadvantage | Bash, Block, Mounted, Strapped, Wall | 6 lb. | 10 gp |
+| Tower Shield | +3 | Str 13 | Disadvantage | Bash, Wall | 8 lb. | 5 gp |
+| Pavise | +3 | Str 15 | Disadvantage | Cover, Wall | 12 lb. | 12 gp |
+
+### Weaponized Shields
+
+| Weapon | Damage | Properties | Mastery | Weight | Cost |
+| --- | --- | --- | --- | ---: | ---: |
+| Madu | 1d6 piercing | Finesse, Light, Special | Graze | 3 lb. | 12 gp |
+| Punch Buckler | 1d4 piercing | Finesse, Special | Vex | 3 lb. | 8 gp |
+
+- **Madu.** Also counts as a bossed buckler.
+- **Punch Buckler.** Also counts as a strapped buckler.
+
+### Shield Properties
+
+- **Bash.** Make a melee attack with the shield. A hit deals damage equal to the shield’s AC rating plus your Strength modifier. If you deal damage, you can substitute **Push**, **Sap**, **Slow**, **Topple**, or **Vex** for any other weapon mastery that would apply to that attack.
+- **Block.** When a creature attacks you, you can use your reaction to increase your AC against that attack by the shield’s AC rating. Use the listed value instead if the shield specifies a number after Block.
+- **Cover.** Use a bonus action to plant the shield in the ground, providing cover to yourself and others. You are Restrained until you use another bonus action to pick it up.
+- **Free-Handed.** The shield leaves its arm’s hand available to use an object, hold a spellcasting focus, carry up to three javelins, or wield a weapon. A weapon in that hand gains **Cumbersome** and **Heavy**, and your attacks with it cannot benefit from **Light** or **Finesse**.
+- **Hook.** As a bonus action, attempt to control the weapon or shield of a creature within melee range with a contested Sleight of Hand check against it. On a success, attacks against that creature have advantage for the rest of the turn.
+- **Interpose.** When a creature within 5 feet of you is attacked, you can use your reaction to add the shield’s AC rating to that creature’s AC against the attack. Use the listed value instead if the shield specifies a number after Interpose.
+- **Mounted.** While you wield this shield on a mount, both you and your mount gain +1 AC.
+- **Riposte.** When a creature misses you with a melee attack while you wield this shield, you can use your reaction to make an opportunity attack against that creature if it is in range.
+- **Strapped.** The shield leaves its arm’s hand available to hold objects such as a spellcasting focus or up to three javelins. That hand cannot use an object or wield a weapon.
+- **Wall.** While wielding this shield, you grant +1 AC to up to two allies within 5 feet of you. If you grant the bonus to two allies, they must be at least 10 feet apart. Two creatures benefiting from each other’s Wall property provide cover to allies behind them.
+
+### Weapon Property
+
+**Cumbersome.** You have disadvantage on attacks with a Cumbersome weapon unless your Dexterity is 13 or higher. You can make these attacks only as part of the Attack action. You can make only one Cumbersome attack per turn unless your Dexterity is 17 or higher.
 
 ## Tiers of Play & Advancement
 

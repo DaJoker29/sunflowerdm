@@ -14,7 +14,7 @@
 		<link rel="stylesheet" href="{{ "css/site.css" | relURL }}">
 		<script src="{{ "js/sidebar.js" | relURL }}" defer blocking="render"></script>
 		<link rel="stylesheet" href="{{ "css/search.css" | relURL }}">
-		<script src="{{ "js/search.js" | relURL }}" defer></script>
+		<script src="{{ "js/search.js" | relURL }}?v={{ readFile "static/js/search.js" | sha256 }}" defer></script>
 	</head>
 	<body>
 		<a class="skip-link" href="#main">Skip to content</a>

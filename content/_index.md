@@ -3,7 +3,11 @@ title = "SunflowerDM"
 description = "Campaign worlds, player guides, and tools for your D&D table."
 
 [params]
-  heroHeading = "Welcome to my table"
+  heroHeading = "Greetings!"
 +++
 
-I run D&D campaigns and share the guides and tools I build for them. If you’re joining one of my games, the Player Portal has campaign guides, house rules, and the Atlas of Pavv. If you run your own games, the DM Portal has random generators, roll tables, and statblocks you can borrow.
+**My name is DeWitt**, though some folks call me DJ. I'm a lifelong nerd whose been running games of _Dungeons & Dragons_ since 2017.
+
+I've built this site to house all things related to the worlds and campaigns I've built, but also to share some of the tools and resources that I've created or found useful for others running the game.
+
+_Enjoy your stay!_

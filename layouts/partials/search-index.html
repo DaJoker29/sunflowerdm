@@ -1,13 +1,6 @@
 {{ $entries := slice }}
 {{ range .Site.Pages }}
   {{ if and (not .IsHome) (not .Draft) (ne .Params.search false) }}
-    {{ $section := .Section }}
-    {{ $portal := "Site" }}
-    {{ if $section }}
-      {{ with .Site.GetPage (printf "/%s" $section) }}
-        {{ $portal = .Title }}
-      {{ end }}
-    {{ end }}
     {{ $sections := slice }}
     {{ range .Ancestors.Reverse }}
       {{ if and .IsSection (not .Parent.IsHome) }}
@@ -20,11 +13,17 @@
     {{ $updated := "" }}
     {{ with .Lastmod }}{{ if not .IsZero }}{{ $updated = .Format "2006-01-02" }}{{ end }}{{ end }}
     {{ with .GitInfo }}{{ $updated = .CommitDate.Format "2006-01-02" }}{{ end }}
-    {{ $entries = $entries | append (dict
+    {{ $entry := dict
       "title" .LinkTitle "description" .Description "text" (.Plain | htmlUnescape)
-      "url" .RelPermalink "portal" $portal "sections" $sections
+      "url" .RelPermalink "sections" $sections
       "kind" (cond .IsSection "Section" "Page") "updated" $updated
-    ) }}
+    }}
+    {{ if in (slice "players" "dm") .Section }}
+      {{ with .Site.GetPage (printf "/%s" .Section) }}
+        {{ $entry = merge $entry (dict "portal" .Title) }}
+      {{ end }}
+    {{ end }}
+    {{ $entries = $entries | append $entry }}
   {{ end }}
 {{ end }}
 {{ $actions := slice
@@ -37,9 +36,9 @@
     {{ if and (not .Draft) (ne .Params.search false) }}
       {{ $entries = $entries | append (dict
         "title" $action.title "description" $action.description "text" $action.keywords
-        "url" .RelPermalink "portal" "Site" "sections" slice "kind" "Action" "updated" ""
+        "url" .RelPermalink "sections" slice "kind" "Action" "updated" ""
       ) }}
     {{ end }}
   {{ end }}
 {{ end }}
-{{ return (resources.FromString "search/index.json" (jsonify $entries)).RelPermalink }}
+{{ return (resources.FromString "search/index.json" (jsonify $entries) | resources.Fingerprint).RelPermalink }}

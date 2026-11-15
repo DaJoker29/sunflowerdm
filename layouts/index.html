@@ -3,6 +3,10 @@
     <div class="hero-copy">
       <h1>{{ .Params.heroHeading | default .Title }}</h1>
       {{ with .Content }}<div class="hero-intro">{{ . }}</div>{{ end }}
+      {{ with resources.Get "images/sunflowerdm-portrait-painted.png" }}
+        {{ $portrait := .Resize "640x webp q85" }}
+        <img class="hero-portrait" src="{{ $portrait.RelPermalink }}" alt="Painted portrait of SunflowerDM holding a spellbook and quill." width="{{ $portrait.Width }}" height="{{ $portrait.Height }}">
+      {{ end }}
       <div class="actions">
         {{ with .Site.GetPage "/players/start-here" }}<a class="button" href="{{ .RelPermalink }}">Player Portal <span aria-hidden="true">›</span></a>{{ end }}
         {{ with .Site.GetPage "/dm/start-here" }}<a class="button secondary" href="{{ .RelPermalink }}">DM Portal <span aria-hidden="true">›</span></a>{{ end }}
@@ -33,7 +37,17 @@
       {{ with $updated }}
         <ul class="entry-list update-list">
           {{ range first 4 (sort . "timestamp" "desc") }}
-            <li><a href="{{ .page.RelPermalink }}"><span>{{ .page.LinkTitle }}</span><time datetime="{{ .date.Format "2006-01-02" }}">{{ .date.Format "Jan 2, 2006" }}</time></a></li>
+            <li>
+              <a href="{{ .page.RelPermalink }}">
+                <span>
+                  <span class="update-title">{{ .page.LinkTitle }}</span>
+                  {{ with .page.Parent }}
+                    {{ if not .IsHome }}<span class="update-parent">({{ .LinkTitle }})</span>{{ end }}
+                  {{ end }}
+                </span>
+                <time datetime="{{ .date.Format "2006-01-02" }}">{{ .date.Format "Jan 2, 2006" }}</time>
+              </a>
+            </li>
           {{ end }}
         </ul>
       {{ else }}

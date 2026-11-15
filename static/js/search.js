@@ -11,6 +11,9 @@
   const suggestionList = suggestions.querySelector("ul");
   const defaultSuggestions = [...suggestionList.querySelectorAll("[data-search-filter]")]
     .map((button) => [button.dataset.searchFilter, button.querySelector("span").textContent]);
+  const portalValues = defaultSuggestions
+    .filter(([token]) => token.startsWith("portal:"))
+    .map(([token]) => token.slice("portal:".length));
   const pageSize = 12;
   let limit = pageSize;
   let entries;
@@ -25,7 +28,6 @@
   ]);
 
   const portalKey = (value) => portalAliases.get(filterKey(value)) ?? filterKey(value);
-  const portalTokens = new Map([["playerportal", "players"], ["dmportal", "dm"]]);
   const filterToken = /(?:^|\s)(portal|section|type|updated):(?:"([^"]*)"(?=\s|$)|([^"\s]*)(?=\s|$)|("[^"]*))/gi;
 
   function parseQuery(input) {
@@ -42,7 +44,7 @@
         key = key.toLowerCase();
         switch (key) {
           case "portal": {
-            conditions.push((entry) => portalKey(entry.portal) === portalKey(value));
+            conditions.push((entry) => entry.portal && portalKey(entry.portal) === portalKey(value));
             break;
           }
           case "section":
@@ -158,15 +160,6 @@
     }
   }
 
-  function portalChoices() {
-    const names = entries ? [...new Set(entries.map((entry) => entry.portal))]
-      : ["Player Portal", "DM Portal", "Site"];
-    return names.map((name) => {
-      const value = portalTokens.get(portalKey(name)) ?? normalize(name);
-      return ["portal:" + (/\s/.test(value) ? '"' + value + '"' : value), name];
-    });
-  }
-
   function renderSuggestions() {
     const value = query.value;
     const caret = query.selectionStart ?? value.length;
@@ -185,12 +178,9 @@
       const [key, fragment] = prefix.split(":", 2);
       if (fragment === undefined && key.length >= 2) {
         choices = defaultSuggestions.filter(([example]) => example.startsWith(key));
-        if ("portal".startsWith(key)) {
-          choices = [...choices.filter(([example]) => !example.startsWith("portal:")), ...portalChoices()];
-        }
       } else if (fragment !== undefined) {
         const values = {
-          portal: portalChoices().map(([example]) => example.slice("portal:".length).replace(/"/g, "")),
+          portal: portalValues,
           section: (entries ?? []).flatMap((entry) => entry.sections.map((item) => item.title)),
           type: ["page", "section", "action"],
           updated: ["7d", "30d", "90d"],
@@ -275,7 +265,7 @@
       const context = document.createElement("span");
       context.className = "search-result-context";
       const contextText = [entry.kind, entry.portal, ...entry.sections.map((item) => item.title)]
-        .filter((part) => part !== entry.title).join(" · ");
+        .filter((part) => part && part !== entry.title).join(" · ");
       highlight(context, contextText, matchRanges(contextText, pattern));
       link.append(title, context);
       if (entry.description) {

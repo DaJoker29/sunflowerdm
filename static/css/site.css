@@ -329,6 +329,7 @@ h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
 .hero-intro { max-width: 55ch; margin-block-start: 1rem; font-size: 1.125rem; }
 .hero-intro p { margin-block: 0; }
 .hero-intro p + p { margin-block-start: .75rem; }
+.hero-portrait { display: block; width: min(100%, clamp(12rem, 25vw, 18rem)); height: auto; margin-block-start: 1.25rem; }
 .actions { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; margin-top: 1.5rem; }
 .button {
   display: inline-block;
@@ -356,6 +357,29 @@ h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
   text-align: center;
 }
 
+@media (width > 52rem) {
+  .hero-copy {
+    display: grid;
+    grid-template-columns: minmax(0, 36rem) clamp(12rem, 24vw, 18rem);
+    column-gap: clamp(1.5rem, 4vw, 3.5rem);
+  }
+
+  .hero-copy h1 { grid-column: 1 / -1; }
+  .hero-intro { grid-area: 2 / 1; }
+
+  .hero-portrait {
+    grid-area: 2 / 2 / span 2;
+    align-self: start;
+    width: 100%;
+    margin-block-start: 1rem;
+  }
+
+  .home-hero .actions {
+    grid-area: 3 / 1;
+    align-self: start;
+  }
+}
+
 .home-hero .button:focus-visible { outline-color: var(--gold); }
 .home-hero .button.secondary { background: var(--sage); }
 .home-hero .button.secondary:hover { background: var(--sage-light); }
@@ -376,7 +400,8 @@ h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
 }
 ul.update-list { margin-top: 1rem; border-top: 0; }
 .update-list a { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 1rem; padding: .5rem 0; text-decoration: none; }
-.update-list a:hover span { text-decoration: underline; }
+.update-list a:hover .update-title { text-decoration: underline; }
+.update-parent { color: var(--muted); font-size: .875em; }
 .update-list time { color: var(--sage); font-size: .88rem; }
 
 .breadcrumbs { margin-bottom: 1.5rem; color: var(--muted); font-size: .9rem; }

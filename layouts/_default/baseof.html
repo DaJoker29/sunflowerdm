@@ -10,11 +10,12 @@
 		<link rel="icon" type="image/png" sizes="48x48" href="{{ "favicon-48.png" | relURL }}">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alice&amp;family=Archivo+Narrow:wght@400..700&amp;family=IM+Fell+English+SC&amp;family=Source+Code+Pro&amp;display=swap">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alice&amp;family=Archivo+Narrow:wght@400..700&amp;family=IM+Fell+English+SC&amp;family=Source+Code+Pro&amp;display=optional">
 		<link rel="stylesheet" href="{{ "css/site.css" | relURL }}">
-		<script src="{{ "js/sidebar.js" | relURL }}" defer blocking="render"></script>
+		<script src="{{ "js/sidebar.js" | relURL }}?v={{ readFile "static/js/sidebar.js" | sha256 }}" defer blocking="render"></script>
 		<link rel="stylesheet" href="{{ "css/search.css" | relURL }}">
 		<script src="{{ "js/search.js" | relURL }}?v={{ readFile "static/js/search.js" | sha256 }}" defer></script>
+		<script src="{{ "js/heading-links.js" | relURL }}?v={{ readFile "static/js/heading-links.js" | sha256 }}" defer></script>
 	</head>
 	<body>
 		<a class="skip-link" href="#main">Skip to content</a>
@@ -23,14 +24,17 @@
 			{{ partial "search.html" . }}
 			{{ $rollTables := .Site.GetPage "/dm/roll-tables" }}
 			<main id="main" class="site-main{{ if .IsHome }} home-main{{ end }}{{ if and $rollTables (or (eq . $rollTables) (.IsDescendant $rollTables)) }} roll-tables{{ end }}">
+				{{ if and .Parent (not .Parent.IsHome) }}
+					<div class="page-context">
+						{{ partial "breadcrumb.html" . }}
+						{{ with .GitInfo }}
+							<p class="page-commit">Last updated: <time datetime="{{ .CommitDate.Format "2006-01-02" }}">{{ .CommitDate.Format "Jan 02, 2006" }}</time> • <a href="{{ $.Site.Params.repositoryURL }}/commit/{{ .Hash }}">{{ .AbbreviatedHash }}</a></p>
+						{{ end }}
+					</div>
+				{{ end }}
 				{{ block "main" . }}{{ end }}
 			</main>
-			<footer class="site-footer">
-				{{ $repo := .Site.Params.repositoryURL }}
-				{{ with .GitInfo }}
-					<span>Last updated: <time datetime="{{ .CommitDate.Format "2006-01-02" }}">{{ .CommitDate.Format "Jan 02, 2006" }}</time> • <a href="{{ $repo }}/commit/{{ .Hash }}">{{ .AbbreviatedHash }}</a></span>
-				{{ end }}
-			</footer>
+			{{ partial "content-pagination.html" . }}
 		</div>
 	</body>
 </html>

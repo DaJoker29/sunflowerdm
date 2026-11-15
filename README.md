@@ -12,8 +12,8 @@ The footer uses Hugo’s Git info to show the last commit that touched each page
 
 - `content/players/pavv/` contains the Start Here page, Handbook, Atlas, and Bestiary. Set `weight` to order entries and add `lastmod = YYYY-MM-DD` to surface a page under Recently Updated.
 - `content/players/campaigns/` contains campaign intros and guides. In a campaign’s front matter under `[params]`, set `recruiting = true` to list it in Open Games. Add `pitch`, `schedule`, `startPlayingURL`, and/or `roll20URL` as available.
-- A campaign with `payment = true` appears in Make a Payment. Set its `paymentURL` to the hosted checkout link when ready. Recruiting and payment are configured independently.
+- Set the Stripe and Venmo URLs in `content/payment.md`. Make a Payment also lists recruiting games with StartPlaying links.
 - `content/dm/` contains sections for generators, roll tables, and statblocks.
 - Set `patreonURL` in `hugo.toml` to show the Patreon button.
 
-New entries can start with `hugo new content players/pavv/bestiary/entry-name/index.md`. Keep maps and other images beside the entry’s `index.md`. Keep private DM notes outside the site source.
+Create a Bestiary entry with `hugo new content --kind bestiary players/pavv/bestiary/entry-name`. Put the optional illustration and token beside the generated `index.md` and set their filenames in the front matter. Remove `draft = true` when the entry is ready. Keep private DM notes outside the site source.

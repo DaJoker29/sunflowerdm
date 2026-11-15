@@ -1,23 +1,19 @@
 {{ define "main" }}
   <header class="intro"><h1>{{ .Title }}</h1>{{ partial "page-badge.html" . }}</header>
-  {{ $games := where .Site.Pages "Params.payment" true }}
-  {{ with $games.ByWeight }}
-    <div class="payment-picker">
-      <label for="payment-game">Which game are you paying for?</label>
-      <select id="payment-game" aria-describedby="payment-status">
-        <option value="">Select a game</option>
-        {{ range $index, $game := . }}
-          <option value="{{ $index }}">{{ $game.Title }}</option>
-        {{ end }}
-      </select>
-      <p id="payment-status" role="status"></p>
-      {{ range $index, $game := . }}
-        {{ with $game.Params.paymentURL }}<a hidden class="button" data-payment-game="{{ $index }}" href="{{ . }}">Continue to checkout ›</a>{{ end }}
-      {{ end }}
-      <noscript><p>The game selector requires JavaScript.</p></noscript>
-    </div>
-    <script src="{{ "js/payment.js" | relURL }}" defer></script>
-  {{ else }}
-    <p class="empty">No games are listed for payment yet.</p>
+  <div class="prose">{{ .Content }}</div>
+  <div class="actions">
+    {{ with .Params.stripeURL }}<a class="button" href="{{ . }}">Pay with Stripe ›</a>{{ end }}
+    {{ with .Params.venmoURL }}<a class="button" href="{{ . }}">Pay with Venmo ›</a>{{ end }}
+  </div>
+
+  {{ $games := partialCached "recruiting-games.html" .Site .Site.Language.Lang }}
+  {{ with where $games "startPlayingURL" "ne" "" }}
+    <section class="prose" aria-labelledby="payment-startplaying">
+      <h2 id="payment-startplaying">Join on StartPlaying</h2>
+      <p>If your game is listed on StartPlaying, you can join and pay for sessions there.</p>
+      <ul>
+        {{ range . }}<li><a href="{{ .startPlayingURL }}">{{ .title }}</a></li>{{ end }}
+      </ul>
+    </section>
   {{ end }}
 {{ end }}

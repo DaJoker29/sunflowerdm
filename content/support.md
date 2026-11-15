@@ -4,4 +4,6 @@ description = "Support SunflowerDM’s public resources and ongoing work."
 layout = 'support'
 +++
 
-The player guides and DM resources are free to browse. You can support my work through SFDM on Patreon.
+Any homebrew tools, guides, or DM resources here are free to browse and use as you like. If something I've made has helped you at your own table, you can support my work on Patreon.
+
+Your support helps me make time to write helpful articles, build tools for DMs, and keep the site running. Thanks for spending some time here.

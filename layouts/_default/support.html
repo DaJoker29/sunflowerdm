@@ -2,6 +2,6 @@
   <header class="intro"><h1>{{ .Title }}</h1>{{ partial "page-badge.html" . }}</header>
   <div class="prose">
     {{ .Content }}
-    {{ with .Site.Params.patreonURL }}<p><a class="button" href="{{ . }}">Support SFDM on Patreon</a></p>{{ end }}
+    {{ with .Site.Params.patreonURL }}<div class="actions"><a class="button" href="{{ . }}">Support me on Patreon <span aria-hidden="true">›</span></a></div>{{ end }}
   </div>
 {{ end }}

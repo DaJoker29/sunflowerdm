@@ -13,9 +13,6 @@
           {{ partial "sidebar-item.html" (dict "item" . "current" $current "level" 1) }}
         {{ end }}
       {{ end }}
-      {{ with .Site.GetPage "/payment" }}
-        <li class="sidebar-payment"><a href="{{ .RelPermalink }}"{{ if eq . $current }} aria-current="page"{{ end }}>{{ partial "sidebar-icon.html" . }}<span class="sidebar-label">Make a Payment <span aria-hidden="true">›</span></span></a></li>
-      {{ end }}
     </ul>
   </nav>
 </header>

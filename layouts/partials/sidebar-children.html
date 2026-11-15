@@ -1,0 +1,11 @@
+{{ $entries := where .RegularPages "Params.sidebar" true }}
+{{ if .Params.sidebarEntries }}
+  {{ $entries = where .RegularPages "Params.sidebar" "ne" false }}
+{{ end }}
+{{ $sections := where .Sections "Params.sidebar" "ne" false }}
+{{ range $sections }}
+  {{ if or (ne .Params.sidebarOverview false) (partial "sidebar-children.html" .) }}
+    {{ $entries = $entries | append . }}
+  {{ end }}
+{{ end }}
+{{ return $entries.ByWeight }}

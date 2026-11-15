@@ -1,5 +1,7 @@
+const sidebar = document.querySelector(".site-sidebar");
 const submenus = [...document.querySelectorAll(".sidebar-submenu")];
 const storageKey = "sunflowerdm.sidebar.open";
+const scrollKey = "sunflowerdm.sidebar.scroll";
 
 function restoreSidebar() {
   let saved;
@@ -24,6 +26,28 @@ function restoreSidebar() {
   }
 }
 
+function restoreSidebarScroll() {
+  if (sidebar.scrollHeight <= sidebar.clientHeight) return;
+
+  try {
+    const scrollTop = Number(sessionStorage.getItem(scrollKey));
+    if (Number.isFinite(scrollTop)) sidebar.scrollTop = scrollTop;
+  } catch {
+    // The active page can still be revealed when storage is unavailable.
+  }
+
+  const currentLink = sidebar.querySelector('a[aria-current="page"]:not(.sidebar-current-preview a)');
+  if (!currentLink) return;
+
+  const viewport = sidebar.getBoundingClientRect();
+  const link = currentLink.getBoundingClientRect();
+  if (link.top < viewport.top) {
+    sidebar.scrollTop += link.top - viewport.top;
+  } else if (link.bottom > viewport.bottom) {
+    sidebar.scrollTop += link.bottom - viewport.bottom;
+  }
+}
+
 function saveSidebar() {
   const openSections = submenus
     .filter((submenu) => submenu.open)
@@ -37,9 +61,21 @@ function saveSidebar() {
 }
 
 restoreSidebar();
-window.addEventListener("pagehide", saveSidebar);
+restoreSidebarScroll();
+window.addEventListener("pagehide", () => {
+  saveSidebar();
+  if (getComputedStyle(sidebar).overflowY === "visible") return;
+  try {
+    sessionStorage.setItem(scrollKey, String(sidebar.scrollTop));
+  } catch {
+    // The sidebar remains usable when storage is unavailable.
+  }
+});
 window.addEventListener("pageshow", (event) => {
-  if (event.persisted) restoreSidebar();
+  if (event.persisted) {
+    restoreSidebar();
+    restoreSidebarScroll();
+  }
 });
 
 for (const submenu of submenus) {
@@ -54,3 +90,38 @@ for (const submenu of submenus) {
     }
   });
 }
+
+const siteContent = document.querySelector(".site-content");
+const sidebarLinks = [...sidebar.querySelectorAll(".site-navigation a[href]")];
+const pagePath = (link) => link.pathname.replace(/\/+$/, "");
+let highlightedLink;
+
+function highlightSidebarLink(link) {
+  highlightedLink?.classList.remove("sidebar-link-match");
+  highlightedLink = undefined;
+  if (!link || link.origin !== window.location.origin || link.getAttribute("href").startsWith("#")) return;
+
+  const destination = pagePath(link);
+  highlightedLink = sidebarLinks.find((candidate) =>
+    candidate.origin === link.origin && pagePath(candidate) === destination &&
+    !candidate.closest("details:not([open])") && candidate.getClientRects().length &&
+    getComputedStyle(candidate).visibility === "visible"
+  );
+  highlightedLink?.classList.add("sidebar-link-match");
+}
+
+siteContent.addEventListener("pointerover", (event) => {
+  if (event.pointerType !== "touch") highlightSidebarLink(event.target.closest("a[href]"));
+});
+
+siteContent.addEventListener("pointerout", (event) => {
+  const link = event.target.closest("a[href]");
+  if (event.pointerType === "touch" || !link || link.contains(event.relatedTarget)) return;
+  highlightSidebarLink(siteContent.querySelector("a:focus-visible"));
+});
+
+siteContent.addEventListener("focusin", (event) => {
+  highlightSidebarLink(event.target.closest("a[href]:focus-visible"));
+});
+
+siteContent.addEventListener("focusout", () => highlightSidebarLink(null));

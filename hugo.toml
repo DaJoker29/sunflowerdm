@@ -9,7 +9,7 @@ enableGitInfo = true
   lastmod = ['lastmod', 'date', 'publishDate', 'expiryDate']
 
 [params]
-  patreonURL = ''
+  patreonURL = 'https://patreon.com/sunflowerdm?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink'
   repositoryURL = 'https://github.com/DaJoker29/sunflowerdm'
 
 [[menus.main]]
@@ -28,11 +28,11 @@ enableGitInfo = true
   weight = 30
 
 [[menus.main]]
-  name = 'About'
-  pageRef = '/about'
-  weight = 40
-
-[[menus.main]]
   name = 'Support'
   pageRef = '/support'
   weight = 50
+
+[[menus.main]]
+  name = 'Credits'
+  pageRef = '/credits'
+  weight = 60

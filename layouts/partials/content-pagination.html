@@ -1,0 +1,43 @@
+{{ $current := . }}
+{{ if in (slice "players" "dm") .Section }}
+  {{ with .Site.GetPage (printf "/%s" .Section) }}
+    {{ $pages := partialCached "content-page-order.html" . .Path .Language.Lang }}
+    {{ $previous := false }}
+    {{ $next := false }}
+    {{ range $index, $page := $pages }}
+      {{ if eq $page $current }}
+        {{ if gt $index 0 }}
+          {{ $previous = index $pages (sub $index 1) }}
+        {{ end }}
+        {{ if lt (add $index 1) (len $pages) }}
+          {{ $next = index $pages (add $index 1) }}
+        {{ end }}
+        {{ break }}
+      {{ end }}
+    {{ end }}
+    {{ if or $previous $next }}
+      <nav class="content-pagination" aria-label="Previous and next pages">
+        <div class="content-pagination-inner">
+          {{ with $previous }}
+            <a class="content-pagination-previous" href="{{ .RelPermalink }}" rel="prev">
+              <span class="content-pagination-arrow" aria-hidden="true">‹</span>
+              <span>
+                <span class="content-pagination-label">Previous</span>
+                <span class="content-pagination-title">{{ .LinkTitle }}</span>
+              </span>
+            </a>
+          {{ end }}
+          {{ with $next }}
+            <a class="content-pagination-next" href="{{ .RelPermalink }}" rel="next">
+              <span class="content-pagination-arrow" aria-hidden="true">›</span>
+              <span>
+                <span class="content-pagination-label">Next</span>
+                <span class="content-pagination-title">{{ .LinkTitle }}</span>
+              </span>
+            </a>
+          {{ end }}
+        </div>
+      </nav>
+    {{ end }}
+  {{ end }}
+{{ end }}

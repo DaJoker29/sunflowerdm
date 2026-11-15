@@ -12,4 +12,4 @@ Whether you’re planning your next session or improvising at the table, start w
 
 - [Random Generators]({{< relref "/dm/generators" >}}) give you names, places, and other details to build on.
 - [Roll Tables]({{< relref "/dm/roll-tables" >}}) give you prompts to use during prep or at the table.
-- Browse [monster statblocks]({{< relref "/dm/statblocks/monsters" >}}) and [NPC statblocks]({{< relref "/dm/statblocks/npcs" >}}) for creatures and characters you can bring into your game.
+- Open **Statblocks** in the sidebar for creatures you can bring into your game, such as [Demonbacks]({{< relref "/dm/statblocks/monsters/demonbacks" >}}).

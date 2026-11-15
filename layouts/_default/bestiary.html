@@ -1,0 +1,26 @@
+{{ define "main" }}
+  {{ $illustration := .Resources.Get (.Params.image | default "") }}
+  {{ $token := .Resources.Get (.Params.token | default "") }}
+  <article>
+    <header class="intro">
+      <h1>{{ .Title }}</h1>{{ partial "page-badge.html" . }}
+    </header>
+    <div class="bestiary-entry">
+      <div class="prose">{{ .Content }}</div>
+      {{ if or $illustration $token }}
+        <aside class="bestiary-media" aria-label="Creature artwork">
+          {{ with $illustration }}
+            {{ $image := .Fit "960x960 webp q84" }}
+            <img src="{{ $image.RelPermalink }}" alt="{{ $.Params.imageAlt }}" width="{{ $image.Width }}" height="{{ $image.Height }}">
+          {{ end }}
+          {{ with $token }}
+            <a class="bestiary-token" href="{{ .RelPermalink }}" download>
+              <img src="{{ .RelPermalink }}" alt="" width="48" height="48">
+              <span>Download token</span>
+            </a>
+          {{ end }}
+        </aside>
+      {{ end }}
+    </div>
+  </article>
+{{ end }}

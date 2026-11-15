@@ -374,5 +374,5 @@
     }
   });
   bar.querySelector("kbd").textContent = /Mac|iPhone|iPad/.test(navigator.platform) ? "⌘ K" : "Ctrl K";
-  bar.hidden = false;
+  query.disabled = false;
 })();

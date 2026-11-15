@@ -1,7 +1,7 @@
-<div class="search-bar" role="search" hidden>
+<div class="search-bar" role="search">
   <div class="search-field">
     <span class="search-icon" aria-hidden="true"></span>
-    <input id="search-query" type="text" inputmode="search" aria-label="Search" aria-controls="site-search" placeholder="Search" autocomplete="off">
+    <input id="search-query" type="text" inputmode="search" aria-label="Search" aria-controls="site-search" placeholder="Search" autocomplete="off" disabled>
     <kbd class="search-shortcut" aria-hidden="true"></kbd>
   </div>
   <div id="site-search" class="search-palette" data-index="{{ partialCached "search-index.html" . .Site.Language.Lang }}" hidden>

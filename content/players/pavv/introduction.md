@@ -1,14 +1,12 @@
 +++
 title = "Introduction to Pavv"
-linkTitle = "Getting Started"
 description = "An introduction to Pavv, its wilderness, and the Six Rooted Truths."
 weight = 10
 sidebar = true
-aliases = ['/handbook/', '/players/pavv/handbook/']
 +++
 
-> ***In Pavv, the still die slowly and the reckless die loudly—only the wise live long.***  
-> ***And those who survive know one truth: Pavv cannot be conquered—only endured.***
+> **_In Pavv, the still die slowly and the reckless die loudly—only the wise live long._**  
+> **_And those who survive know one truth: Pavv cannot be conquered—only endured._**
 
 ## Paradise or Prison
 
@@ -20,7 +18,7 @@ Civilizations have risen up behind the walls of stone and timber, carving out po
 
 ## The Six Rooted Truths
 
-- **Pavv’s wild paradise** was sculpted over centuries from barren rock by the archdruid ***Obree***.
+- **Pavv’s wild paradise** was sculpted over centuries from barren rock by the archdruid **_Obree_**.
 - **Obree vanished without a word or sign,** and no druid since has matched their power.
 - **Pavv’s Pantheon** formed gradually as more inhabitants arrived with their respective faiths, evolving into the living gods we see today.
 - **Violent seas and unseen barriers** enforce geographical isolation, believed to be divine in origin.

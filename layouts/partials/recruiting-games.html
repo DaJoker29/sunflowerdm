@@ -1,0 +1,13 @@
+{{ $games := slice }}
+{{ $campaigns := where .Pages "Params.recruiting" true }}
+{{ range $campaign := $campaigns.ByWeight }}
+  {{ $listings := $campaign.Params.openGames | default (slice $campaign.Params) }}
+  {{ range $listing := $listings }}
+    {{ if ne $listing.recruiting false }}
+      {{ $title := $listing.title | default $campaign.Title }}
+      {{ $startPlayingURL := $listing.startPlayingURL | default $listing.startplayingurl | default "" }}
+      {{ $games = $games | append (dict "campaign" $campaign "listing" $listing "title" $title "startPlayingURL" $startPlayingURL) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return $games }}

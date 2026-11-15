@@ -1,13 +1,4 @@
-{{ $games := slice }}
-{{ $campaigns := where .site.Pages "Params.recruiting" true }}
-{{ range $campaign := $campaigns.ByWeight }}
-	{{ $listings := $campaign.Params.openGames | default (slice $campaign.Params) }}
-	{{ range $listing := $listings }}
-		{{ if ne $listing.recruiting false }}
-			{{ $games = $games | append (dict "campaign" $campaign "listing" $listing) }}
-		{{ end }}
-	{{ end }}
-{{ end }}
+{{ $games := partialCached "recruiting-games.html" .site .site.Language.Lang }}
 {{ if .limit }}{{ $games = first .limit $games }}{{ end }}
 {{ with $games }}
 	<ul class="game-list">
@@ -22,14 +13,13 @@
 						{{ end }}
 					{{ end }}
 				{{ end }}
-				<h3><a href="{{ .campaign.RelPermalink }}">{{ .listing.title | default .campaign.Title }}</a></h3>
+				<h3><a href="{{ .campaign.RelPermalink }}">{{ .title }}</a></h3>
 				{{ with .listing.pitch }}<p>{{ . }}</p>{{ end }}
 				{{ with .listing.schedule }}<p>{{ . }}</p>{{ end }}
-				{{ $startPlayingURL := .listing.startPlayingURL | default .listing.startplayingurl }}
 				{{ $roll20URL := .listing.roll20URL | default .listing.roll20url }}
-				{{ if or $startPlayingURL $roll20URL }}
+				{{ if or .startPlayingURL $roll20URL }}
 					<div class="actions">
-						{{ with $startPlayingURL }}<a href="{{ . }}">View on StartPlaying ›</a>{{ end }}
+						{{ with .startPlayingURL }}<a href="{{ . }}">View on StartPlaying ›</a>{{ end }}
 						{{ with $roll20URL }}<a href="{{ . }}">View on Roll20 ›</a>{{ end }}
 					</div>
 				{{ end }}

@@ -3,12 +3,7 @@
 {{ $level := .level }}
 {{ $active := eq $item $current }}
 {{ $ancestor := $current.IsDescendant $item }}
-{{ $children := where $item.Pages.ByWeight "IsSection" true }}
-{{ range $item.Pages.ByWeight }}
-	{{ if and .IsPage .Params.sidebar }}
-		{{ $children = $children | append . }}
-	{{ end }}
-{{ end }}
+{{ $children := partial "sidebar-children.html" $item }}
 {{ $portal := and (eq $level 1) (in (slice "/players" "/dm") $item.Path) }}
 {{ $disclosure := or $portal (and (ge $level 2) $children) }}
 {{ $hasOverview := eq $item.Params.sidebarOverview true }}
@@ -20,7 +15,7 @@
 	{{ else }}
 		<a href="{{ $item.RelPermalink }}"{{ if $active }} aria-current="page"{{ end }}>{{ if eq $level 1 }}{{ partial "sidebar-icon.html" $item }}{{ end }}<span class="sidebar-label">{{ $item.LinkTitle }}</span></a>
 	{{ end }}
-	{{ with $children.ByWeight }}
+	{{ with $children }}
 		<ul class="sidebar-links">
 			{{ if and $disclosure $hasOverview }}
 				<li><a href="{{ $item.RelPermalink }}" aria-label="{{ $item.LinkTitle }} overview"{{ if $active }} aria-current="page"{{ end }}><span class="sidebar-label">Overview</span></a></li>

@@ -2,27 +2,28 @@
 title = "House Rules"
 description = "Variant rules, shields, advancement, and overland travel."
 sidebar = true
+weight = 25
 +++
 
 While Pavv follows the core rules of 5th Edition (2014 & 2024), some mechanics have been bent, broken, or reforged to better suit the tone and rhythm of this world.
 
 ## Variant Rules
 
-***Perkins Crit.*** Critical hits deal maximum damage from all damage dice, plus a normal damage roll and relevant modifiers.
+**_Perkins Crit._** Critical hits deal maximum damage from all damage dice, plus a normal damage roll and relevant modifiers.
 
-***Bonus Action Potions.*** Drinking a potion takes a bonus action. Administering one to another creature takes an action.
+**_Bonus Action Potions._** Drinking a potion takes a bonus action. Administering one to another creature takes an action.
 
-***Secret Death Saves.*** The results of death saving throws will be known only to the DM.
+**_Secret Death Saves._** The results of death saving throws will be known only to the DM.
 
-***Natural 20 Initiative.*** When entering combat, a creature who rolled a natural 20 on initiative may choose their position in the initiative order.
+**_Natural 20 Initiative._** When entering combat, a creature who rolled a natural 20 on initiative may choose their position in the initiative order.
 
-***Cleave.*** Characters can spend 300gp and spend an appropriate amount of time training (30 days) to gain the Cleave trait. When a character with this trait makes a weapon attack that reduces a creature to 0 hit points, any excess damage from the attack may be applied to one or more secondary targets under the following conditions:
+**_Cleave._** Characters can spend 300gp and spend an appropriate amount of time training (30 days) to gain the Cleave trait. When a character with this trait makes a weapon attack that reduces a creature to 0 hit points, any excess damage from the attack may be applied to one or more secondary targets under the following conditions:
 
 - If the attack is melee, secondary targets must be within the attacker’s melee range.
 - If the attack is ranged, secondary targets must be in a straight line behind the original target and within the weapon’s range.
 - The original attack roll must be equal to or greater than the AC of the secondary target.
 
-***Per-Session Inspiration.*** At the start of each session, players choose one character to gain Inspiration until the end of the session. Other players may choose for their characters to gain Inspiration during play; however, each time they do so, the DM gains a use of Inspiration as well. All Inspirations are lost at the end of each session.
+**_Per-Session Inspiration._** At the start of each session, players choose one character to gain Inspiration until the end of the session. Other players may choose for their characters to gain Inspiration during play; however, each time they do so, the DM gains a use of Inspiration as well. All Inspirations are lost at the end of each session.
 
 ## Shields
 
@@ -30,23 +31,23 @@ I’ve adopted **u/bornasbrooke’s shield rules wholesale** for Pavv. All shiel
 
 ### Shield Types
 
-| Shield | AC Bonus | Strength | Stealth | Properties | Weight | Cost |
-| --- | ---: | --- | --- | --- | ---: | ---: |
-| Buckler (bossed) | +1 | — | — | Bash, Hook, Interpose, Light, Riposte | 2 lb. | 3 gp |
-| Buckler (strapped) | +1 | — | — | Block, Free-Handed, Hook, Riposte | 3 lb. | 10 gp |
-| Strapped Round Shield | +2 | — | — | Hook, Interpose, Riposte, Strapped | 4 lb. | 4 gp |
-| Heater Shield | +2 | — | — | Bash, Block, Hook, Riposte, Strapped | 5 lb. | 15 gp |
-| Center-Boss Round Shield | +3 | Str 13 | — | Bash, Block, Mounted, Wall | 7 lb. | 8 gp |
-| Kite Shield | +2 | Str 11 | Disadvantage | Bash, Block, Mounted, Strapped, Wall | 6 lb. | 10 gp |
-| Tower Shield | +3 | Str 13 | Disadvantage | Bash, Wall | 8 lb. | 5 gp |
-| Pavise | +3 | Str 15 | Disadvantage | Cover, Wall | 12 lb. | 12 gp |
+| Shield                   | AC Bonus | Strength | Stealth      | Properties                            | Weight |  Cost |
+| ------------------------ | -------: | -------- | ------------ | ------------------------------------- | -----: | ----: |
+| Buckler (bossed)         |       +1 | —        | —            | Bash, Hook, Interpose, Light, Riposte |  2 lb. |  3 gp |
+| Buckler (strapped)       |       +1 | —        | —            | Block, Free-Handed, Hook, Riposte     |  3 lb. | 10 gp |
+| Strapped Round Shield    |       +2 | —        | —            | Hook, Interpose, Riposte, Strapped    |  4 lb. |  4 gp |
+| Heater Shield            |       +2 | —        | —            | Bash, Block, Hook, Riposte, Strapped  |  5 lb. | 15 gp |
+| Center-Boss Round Shield |       +3 | Str 13   | —            | Bash, Block, Mounted, Wall            |  7 lb. |  8 gp |
+| Kite Shield              |       +2 | Str 11   | Disadvantage | Bash, Block, Mounted, Strapped, Wall  |  6 lb. | 10 gp |
+| Tower Shield             |       +3 | Str 13   | Disadvantage | Bash, Wall                            |  8 lb. |  5 gp |
+| Pavise                   |       +3 | Str 15   | Disadvantage | Cover, Wall                           | 12 lb. | 12 gp |
 
 ### Weaponized Shields
 
-| Weapon | Damage | Properties | Mastery | Weight | Cost |
-| --- | --- | --- | --- | ---: | ---: |
-| Madu | 1d6 piercing | Finesse, Light, Special | Graze | 3 lb. | 12 gp |
-| Punch Buckler | 1d4 piercing | Finesse, Special | Vex | 3 lb. | 8 gp |
+| Weapon        | Damage       | Properties              | Mastery | Weight |  Cost |
+| ------------- | ------------ | ----------------------- | ------- | -----: | ----: |
+| Madu          | 1d6 piercing | Finesse, Light, Special | Graze   |  3 lb. | 12 gp |
+| Punch Buckler | 1d4 piercing | Finesse, Special        | Vex     |  3 lb. |  8 gp |
 
 - **Madu.** Also counts as a bossed buckler.
 - **Punch Buckler.** Also counts as a strapped buckler.
@@ -80,7 +81,7 @@ Adventurers focus on a particular region of Pavv, exploring its wilderness, unco
 
 #### Tier 2: Heroes (Levels 9-12)
 
-Heroes venture beyond individual regions, becoming involved in conflicts spanning cities, nations, and powerful factions. Access to magic such as *Teleportation Circle* makes long-distance travel more practical, opening opportunities for political intrigue, shifting alliances, and larger threats.
+Heroes venture beyond individual regions, becoming involved in conflicts spanning cities, nations, and powerful factions. Access to magic such as _Teleportation Circle_ makes long-distance travel more practical, opening opportunities for political intrigue, shifting alliances, and larger threats.
 
 #### Tier 3: Legends (Levels 13-20)
 
@@ -90,48 +91,48 @@ Legends confront extraordinary threats whose consequences may extend across Pavv
 
 Characters earn **1-5 xp at the each of each session**. To level up, characters must meet all XP, gold, and training requirements for the level they are entering. When training is complete, the character deducts their XP and gold costs and gains a level.
 
-***Training.*** Once a character meets the prerequisites, they can begin training by taking a long rest in a haven, such as a secure settlement or protected demi-plane. If they leave to fight or explore, their training pauses. They may resume training when they return to a suitable haven and meet their training requirements again.
+**_Training._** Once a character meets the prerequisites, they can begin training by taking a long rest in a haven, such as a secure settlement or protected demi-plane. If they leave to fight or explore, their training pauses. They may resume training when they return to a suitable haven and meet their training requirements again.
 
-***Tier Milestones.*** Before entering the Heroes or Legends tiers, characters must complete a character-specific milestone agreed on with the DM.
+**_Tier Milestones._** Before entering the Heroes or Legends tiers, characters must complete a character-specific milestone agreed on with the DM.
 
-| **Tier of the level you’re entering** | **XP per level** | **Training per level** | **Gold per level** | **Training requirement** |
-| --- | --- | --- | --- | --- |
-| **Adventurers (3–8)** | 8 XP | 1 week | 10 gp | Train in a haven. |
-| **Heroes (9–12)** | 10 XP | 2 weeks | 20 gp | Train with a mentor. |
-| **Legends (13–20)** | 12 XP | 1 month (4 weeks) | 60 gp | Train at a dedicated site. |
+| **Tier of the level you’re entering** | **XP per level** | **Training per level** | **Gold per level** | **Training requirement**   |
+| ------------------------------------- | ---------------- | ---------------------- | ------------------ | -------------------------- |
+| **Adventurers (3–8)**                 | 8 XP             | 1 week                 | 10 gp              | Train in a haven.          |
+| **Heroes (9–12)**                     | 10 XP            | 2 weeks                | 20 gp              | Train with a mentor.       |
+| **Legends (13–20)**                   | 12 XP            | 1 month (4 weeks)      | 60 gp              | Train at a dedicated site. |
 
 ## Overland Travel & Journeys
 
-In Pavv, the journey is just as dangerous as the destination. These rules focus on making overland movement tense, meaningful, and filled with discovery. They are heavily inspired by [GiffyGlyph’s Darker Dungeons](<https://www.giffyglyph.com/darkerdungeons/grimoire/4.0.0/en/>) and [Sly Flourish’s Lazy GM Resource Document](<https://slyflourish.com/lazy_gm_resource_document.html>).
+In Pavv, the journey is just as dangerous as the destination. These rules focus on making overland movement tense, meaningful, and filled with discovery. They are heavily inspired by [GiffyGlyph’s Darker Dungeons](https://www.giffyglyph.com/darkerdungeons/grimoire/4.0.0/en/) and [Sly Flourish’s Lazy GM Resource Document](https://slyflourish.com/lazy_gm_resource_document.html).
 
 When traveling through the wilderness, each player chooses a role for their character to fulfill. If two players wish to take on the same role, one character can assist the other, granting advantage on the check.
 
 Additionally, certain tools and equipment may offer a bonus to particular checks.
 
-**Starting a Journey:** To initiate travel, the party must decide on **a route** (if multiple exist) and **a travel pace**. *Be aware: each route comes with its own inherent risk.*
+**Starting a Journey:** To initiate travel, the party must decide on **a route** (if multiple exist) and **a travel pace**. _Be aware: each route comes with its own inherent risk._
 
 **Forced March:** Characters can push beyond the limit of the standard 8-hour traveling day. For each additional hour of travel beyond 8 hours, each character must make a Constitution saving throw at the end of the hour. The DC is 10 + 1 for each hour past 8 hours. On a failed saving throw, a character suffers one level of exhaustion.
 
-| **Pace** | **Per Hour** | **Per Day** | **Guide** | **Forage** | **Scout** |
-| --- | --- | --- | --- | --- | --- |
-| *Slow* | 2 miles | 18 miles | Advantage | Normal | Advantage |
-| *Normal* | 3 miles | 24 miles | Normal | Disadvantage | Normal |
-| *Fast* | 4 miles | 30 miles | Disadvantage | None | Disadvantage |
+| **Pace** | **Per Hour** | **Per Day** | **Guide**    | **Forage**   | **Scout**    |
+| -------- | ------------ | ----------- | ------------ | ------------ | ------------ |
+| _Slow_   | 2 miles      | 18 miles    | Advantage    | Normal       | Advantage    |
+| _Normal_ | 3 miles      | 24 miles    | Normal       | Disadvantage | Normal       |
+| _Fast_   | 4 miles      | 30 miles    | Disadvantage | None         | Disadvantage |
 
 ### Roles
 
 #### **Guide** — Survival, Nature
 
-*The guide is responsible for keeping the party on course during overland travel, using maps and cartographers’ tools to navigate the wilds. A successful check keeps the group on track, while failure can lead to becoming lost, straying into danger, losing resources, or suffering exhaustion. A misstep can also delay travel or make resting difficult until the correct path is found again.*
+_The guide is responsible for keeping the party on course during overland travel, using maps and cartographers’ tools to navigate the wilds. A successful check keeps the group on track, while failure can lead to becoming lost, straying into danger, losing resources, or suffering exhaustion. A misstep can also delay travel or make resting difficult until the correct path is found again._
 
 #### **Forager/Supplymaster** — Survival, Medicine
 
-*The forager ensures that the characters remain well fed and hydrated during their journey. Shorter journeys might not require a character to take on this role. A successful check ensures the characters have plenty of food and water for the journey, with provisions remaining unspoiled. On a failure, the characters might lose precious resources (potentially leading to exhaustion), or need to spend additional time searching for resources.*
+_The forager ensures that the characters remain well fed and hydrated during their journey. Shorter journeys might not require a character to take on this role. A successful check ensures the characters have plenty of food and water for the journey, with provisions remaining unspoiled. On a failure, the characters might lose precious resources (potentially leading to exhaustion), or need to spend additional time searching for resources._
 
 #### **Scout** — Insight, Investigation, Nature, Perception, Survival
 
-*The scout keeps an eye out for potentially hostile creatures during the characters’ journey. A spyglass will help you scout better. A successful check ensures the characters spot potential hostile creatures and can plan their response. On a failure, the scout might unknowingly lead the party into an ambush or hazard.*
+_The scout keeps an eye out for potentially hostile creatures during the characters’ journey. A spyglass will help you scout better. A successful check ensures the characters spot potential hostile creatures and can plan their response. On a failure, the scout might unknowingly lead the party into an ambush or hazard._
 
 #### **Lookout** — Perception, Investigation
 
-*The lookout protects the camp at night. They can set traps and alarms around the camp—dry twigs, tripwires, the Alarm ritual—to help detect intruders. On a successful check, the lookout will spot threats early enough to prepare the party. On a failed check, the lookout/party may be caught unaware.*
+_The lookout protects the camp at night. They can set traps and alarms around the camp—dry twigs, tripwires, the Alarm ritual—to help detect intruders. On a successful check, the lookout will spot threats early enough to prepare the party. On a failed check, the lookout/party may be caught unaware._

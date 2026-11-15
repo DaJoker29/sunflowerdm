@@ -1,0 +1,4 @@
+<h{{ .Level }} id="{{ .Anchor }}" aria-label="{{ .PlainText }}">
+  {{- .Text | safeHTML }}
+  <a class="heading-link" href="#{{ .Anchor }}" aria-label="Copy link to {{ .PlainText }}" title="Copy heading link"></a>
+</h{{ .Level }}>

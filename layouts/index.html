@@ -25,7 +25,7 @@
       <div class="panel-heading"><h2 id="updates-heading">Recently Updated</h2></div>
       {{ $updated := slice }}
       {{ range .Site.Pages }}
-        {{ if and (not .IsHome) (not .Draft) (ne .Params.sidebarOverview false) }}
+        {{ if and (not .IsHome) (not .Draft) (ne .Params.sidebarOverview false) (ne .Section "articles") }}
           {{ $page := . }}
           {{ with .GitInfo }}
             {{ if partial "is-recent-commit.html" .CommitDate }}

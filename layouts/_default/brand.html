@@ -1,0 +1,118 @@
+{{ define "main" }}
+  {{ $tokens := dict }}
+  {{ range findRESubmatch `(?m)^\s*--([a-z-]+):\s*(#[0-9a-fA-F]{6}|'[^']+')` (readFile "static/css/site.css") }}
+    {{ $tokens = merge $tokens (dict (index . 1) (replace (index . 2) "'" "")) }}
+  {{ end }}
+  <article class="brand-reference">
+    <header class="intro">
+      <h1>{{ .Title }}</h1>
+      <p>{{ .Description }}</p>
+    </header>
+
+    <section aria-labelledby="brand-newsletter">
+      <h2 id="brand-newsletter">Newsletter artwork</h2>
+      <div class="brand-grid">
+        {{ range .Params.newsletterAssets }}
+          {{ $asset := . }}
+          {{ with $.Resources.GetMatch $asset.file }}
+            <figure class="brand-asset{{ if eq $asset.file "sunflowerdm-masthead.jpg" }} brand-asset-wide{{ end }}">
+              <div class="brand-preview">
+                <img src="{{ .RelPermalink }}" alt="" width="{{ .Width }}" height="{{ .Height }}">
+              </div>
+              <figcaption>
+                <h3>{{ $asset.title }}</h3>
+                <p>{{ $asset.note }}</p>
+                <a href="{{ .RelPermalink }}" download>Download {{ $asset.title | lower }} ({{ upper (strings.TrimPrefix "." (path.Ext .Name)) }}, {{ .Width }} × {{ .Height }})</a>
+              </figcaption>
+            </figure>
+          {{ end }}
+        {{ end }}
+      </div>
+    </section>
+
+    <section aria-labelledby="brand-website">
+      <h2 id="brand-website">Website graphics</h2>
+      <div class="brand-grid">
+        <figure class="brand-asset">
+          <div class="brand-preview brand-mark-preview">
+            <img src="{{ "favicon-48.png" | relURL }}" alt="" width="48" height="48">
+            <span>SunflowerDM</span>
+          </div>
+          <figcaption>
+            <h3>Sunflower and d20 mark</h3>
+            <p>The sidebar pairs this mark with the wordmark set in IM Fell English SC.</p>
+            <a href="{{ "favicon-48.png" | relURL }}" download>Download 48 px PNG</a> ·
+            <a href="{{ "favicon-32.png" | relURL }}" download>Download 32 px PNG</a>
+          </figcaption>
+        </figure>
+        {{ with resources.Get "images/sunflowerdm-portrait-painted.png" }}
+          {{ $preview := .Resize "320x webp q85" }}
+          <figure class="brand-asset">
+            <div class="brand-preview brand-portrait-preview">
+              <img src="{{ $preview.RelPermalink }}" alt="" width="{{ $preview.Width }}" height="{{ $preview.Height }}" loading="lazy">
+            </div>
+            <figcaption>
+              <h3>SunflowerDM portrait</h3>
+              <p>Painted spellbook-and-quill portrait from the homepage.</p>
+              <a href="{{ .RelPermalink }}" download>Download original PNG</a>
+            </figcaption>
+          </figure>
+        {{ end }}
+        <figure class="brand-asset">
+          <div class="brand-preview brand-texture-preview" aria-hidden="true"></div>
+          <figcaption>
+            <h3>Paper grain</h3>
+            <p>Fine texture layered over the forest-green background and radial glow.</p>
+            <a href="{{ "css/paper-grain.svg" | relURL }}" download>Download texture SVG</a>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section aria-labelledby="brand-colors">
+      <h2 id="brand-colors">Colors</h2>
+      {{ $colors := slice
+        (dict "token" "forest" "label" "Forest" "use" "Page background")
+        (dict "token" "green" "label" "Dark green" "use" "Sidebar and surfaces")
+        (dict "token" "ink" "label" "Ink" "use" "Body text")
+        (dict "token" "muted" "label" "Muted ink" "use" "Secondary text")
+        (dict "token" "gold" "label" "Gold" "use" "Headings, links, and buttons")
+        (dict "token" "gold-light" "label" "Light gold" "use" "Hover and focus")
+        (dict "token" "sage" "label" "Sage" "use" "Secondary accents and active navigation")
+        (dict "token" "sage-light" "label" "Light sage" "use" "Labels and hover")
+        (dict "token" "gold-muted" "label" "Muted gold" "use" "Subtle accents")
+        (dict "token" "line" "label" "Line" "use" "Rules and borders")
+      }}
+      <ul class="brand-grid brand-swatches">
+        {{ range $colors }}
+          <li>
+            <div class="brand-swatch" style="{{ printf "background: var(--%s)" .token | safeCSS }}" aria-hidden="true"></div>
+            <strong>{{ .label }}</strong> <code>{{ upper (index $tokens .token) }}</code>
+            <span>{{ .use }}</span>
+          </li>
+        {{ end }}
+      </ul>
+    </section>
+
+    <section aria-labelledby="brand-type">
+      <h2 id="brand-type">Typography</h2>
+      {{ $fonts := slice
+        (dict "token" "body" "sample" "Notes from the table" "use" "Headings and body text.")
+        (dict "token" "interface" "sample" "Player Portal" "use" "Navigation, search, roll tables, and labels.")
+        (dict "token" "wordmark" "sample" "SunflowerDM" "use" "Site wordmark.")
+        (dict "token" "mono" "sample" "Nov 14, 2026 • 4d7e1a9" "use" "Commit dates and hashes.")
+      }}
+      <dl class="brand-grid brand-fonts">
+        {{ range $fonts }}
+          <div>
+            <dt>{{ index $tokens .token }}</dt>
+            <dd>
+              <div class="brand-font-sample" style="{{ printf "font-family: var(--%s)" .token | safeCSS }}">{{ .sample }}</div>
+              <p>{{ .use }}</p>
+            </dd>
+          </div>
+        {{ end }}
+      </dl>
+    </section>
+  </article>
+{{ end }}

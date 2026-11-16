@@ -3,9 +3,9 @@
 {{ $level := .level }}
 {{ $active := eq $item $current }}
 {{ $ancestor := $current.IsDescendant $item }}
-{{ $children := partial "sidebar-children.html" $item }}
 {{ $portal := and (eq $level 1) (in (slice "/players" "/dm") $item.Path) }}
-{{ $disclosure := or $portal (and (ge $level 2) $children) }}
+{{ $children := and (or $portal (ge $level 2)) (partial "sidebar-children.html" $item) }}
+{{ $disclosure := or $portal $children }}
 {{ $hasOverview := eq $item.Params.sidebarOverview true }}
 {{ $containsCurrent := or $ancestor (and $active $hasOverview) }}
 <li>

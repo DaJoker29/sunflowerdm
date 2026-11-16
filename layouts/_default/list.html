@@ -3,11 +3,20 @@
     <h1>{{ .Title }}</h1>{{ partial "page-badge.html" . }}
   </header>
   {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+  {{ if eq .Section "newsletter" }}
+    {{ if and .Params.signupAction .Params.recaptchaSiteKey }}
+      {{ partial "newsletter-signup.html" . }}
+    {{ end }}
+    <h2>Past issues</h2>
+  {{ end }}
   {{ $entries := where .RegularPages.ByWeight "Params.sidebar" "ne" true }}
+  {{ if in (slice "articles" "newsletter") .Section }}{{ $entries = .RegularPagesRecursive.ByDate.Reverse }}{{ end }}
   {{ if $entries }}
     <ul class="entry-list" aria-label="Entries">
       {{ range $entries }}{{ partial "entry.html" . }}{{ end }}
     </ul>
+  {{ else if eq .Section "newsletter" }}
+    <p class="empty">No issues have been published yet.</p>
   {{ else if and (not .Pages) (not .Content) }}
     <p class="empty">Entries will appear here as they’re published.</p>
   {{ end }}

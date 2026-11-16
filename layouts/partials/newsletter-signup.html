@@ -1,0 +1,62 @@
+<section class="newsletter-signup" aria-label="Newsletter signup">
+	<div class="sib-form">
+		<div id="sib-form-container" class="sib-form-container">
+			<div id="error-message" class="sib-form-message-panel" role="alert">
+				<div class="sib-form-message-panel__text">
+					<span class="sib-form-message-panel__inner-text">We couldn’t save your signup. Please try again.</span>
+				</div>
+			</div>
+			<div id="success-message" class="sib-form-message-panel" role="status">
+				<div class="sib-form-message-panel__text">
+					<span class="sib-form-message-panel__inner-text">Thanks for signing up. Check your inbox for any confirmation email from SunflowerDM.</span>
+				</div>
+			</div>
+			<div id="sib-container" class="sib-container--large sib-container--vertical">
+				<form id="sib-form" method="post" action="{{ .Params.signupAction }}" data-type="subscription">
+					<div class="sib-input sib-form-block">
+						<div class="form__entry entry_block">
+							<div class="form__label-row">
+								<label class="entry__label" for="EMAIL">Email address</label>
+								<div class="entry__field">
+									<input class="input" type="email" id="EMAIL" name="EMAIL" autocomplete="email" data-required="true" required>
+								</div>
+							</div>
+							<div class="entry__error entry__error--primary"></div>
+						</div>
+					</div>
+					<div class="sib-captcha sib-form-block">
+						<div class="form__entry entry_block">
+							<div class="form__label-row">
+								<div class="g-recaptcha sib-visible-recaptcha" id="sib-captcha" data-sitekey="{{ .Params.recaptchaSiteKey }}" data-callback="handleCaptchaResponse" data-theme="dark"></div>
+							</div>
+							<div class="entry__error entry__error--primary"></div>
+						</div>
+					</div>
+					<div class="sib-form-block">
+						<button class="button sib-form-block__button sib-form-block__button-with-loader" form="sib-form" type="submit">
+							<svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 32 32" aria-hidden="true">
+								<path d="M16 3a13 13 0 1 1-9.2 3.8" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+							</svg>
+							Subscribe
+						</button>
+					</div>
+					<input type="text" name="email_address_check" value="" class="input--hidden" hidden>
+					<input type="hidden" name="locale" value="en">
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
+<script>
+  window.LOCALE = 'en';
+  window.EMAIL_INVALID_MESSAGE = 'Enter a valid email address.';
+  window.REQUIRED_ERROR_MESSAGE = 'This field is required.';
+  window.GENERIC_INVALID_MESSAGE = 'Check the form and try again.';
+  var AUTOHIDE = false;
+
+  function handleCaptchaResponse() {
+    document.getElementById('sib-captcha').dispatchEvent(new Event('captchaChange'));
+  }
+</script>
+<script defer src="https://sibforms.com/forms/end-form/build/main.js"></script>
+<script defer src="https://www.google.com/recaptcha/api.js?hl=en"></script>

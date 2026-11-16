@@ -1,7 +1,9 @@
 const sidebar = document.querySelector(".site-sidebar");
+const sidebarNav = sidebar.querySelector(".site-navigation");
 const submenus = [...document.querySelectorAll(".sidebar-submenu")];
 const storageKey = "sunflowerdm.sidebar.open";
 const scrollKey = "sunflowerdm.sidebar.scroll";
+const mobileScrollKey = "sunflowerdm.sidebar.scroll.mobile";
 
 function restoreSidebar() {
   let saved;
@@ -26,12 +28,18 @@ function restoreSidebar() {
   }
 }
 
+function sidebarScrollport() {
+  return getComputedStyle(sidebar).overflowY === "visible" ? sidebarNav : sidebar;
+}
+
 function restoreSidebarScroll() {
-  if (sidebar.scrollHeight <= sidebar.clientHeight) return;
+  const scrollport = sidebarScrollport();
+  if (scrollport.scrollHeight <= scrollport.clientHeight) return;
+  const key = scrollport === sidebar ? scrollKey : mobileScrollKey;
 
   try {
-    const scrollTop = Number(sessionStorage.getItem(scrollKey));
-    if (Number.isFinite(scrollTop)) sidebar.scrollTop = scrollTop;
+    const scrollTop = Number(sessionStorage.getItem(key));
+    if (Number.isFinite(scrollTop)) scrollport.scrollTop = scrollTop;
   } catch {
     // The active page can still be revealed when storage is unavailable.
   }
@@ -39,12 +47,12 @@ function restoreSidebarScroll() {
   const currentLink = sidebar.querySelector('a[aria-current="page"]:not(.sidebar-current-preview a)');
   if (!currentLink) return;
 
-  const viewport = sidebar.getBoundingClientRect();
+  const viewport = scrollport.getBoundingClientRect();
   const link = currentLink.getBoundingClientRect();
   if (link.top < viewport.top) {
-    sidebar.scrollTop += link.top - viewport.top;
+    scrollport.scrollTop += link.top - viewport.top;
   } else if (link.bottom > viewport.bottom) {
-    sidebar.scrollTop += link.bottom - viewport.bottom;
+    scrollport.scrollTop += link.bottom - viewport.bottom;
   }
 }
 
@@ -64,9 +72,10 @@ restoreSidebar();
 restoreSidebarScroll();
 window.addEventListener("pagehide", () => {
   saveSidebar();
-  if (getComputedStyle(sidebar).overflowY === "visible") return;
+  const scrollport = sidebarScrollport();
+  const key = scrollport === sidebar ? scrollKey : mobileScrollKey;
   try {
-    sessionStorage.setItem(scrollKey, String(sidebar.scrollTop));
+    sessionStorage.setItem(key, String(scrollport.scrollTop));
   } catch {
     // The sidebar remains usable when storage is unavailable.
   }

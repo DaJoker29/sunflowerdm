@@ -1,0 +1,11 @@
+{{ define "main" }}
+  <article>
+    <header class="intro">
+      <h1>{{ .Title }}</h1>{{ partial "page-badge.html" . }}
+      {{ if not .Date.IsZero }}
+        <p class="article-date"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time></p>
+      {{ end }}
+    </header>
+    <div class="prose">{{ .Content }}</div>
+  </article>
+{{ end }}

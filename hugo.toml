@@ -28,6 +28,16 @@ enableGitInfo = true
   weight = 30
 
 [[menus.main]]
+  name = 'Articles'
+  pageRef = '/articles'
+  weight = 40
+
+[[menus.main]]
+  name = 'Newsletter'
+  pageRef = '/newsletter'
+  weight = 45
+
+[[menus.main]]
   name = 'Support'
   pageRef = '/support'
   weight = 50

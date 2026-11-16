@@ -1,5 +1,5 @@
 +++
-title = "Campaigns"
+title = "Campaign Guides"
 description = "Introductions and player guides for individual games."
 weight = 10
 

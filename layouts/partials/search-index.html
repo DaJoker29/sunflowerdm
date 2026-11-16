@@ -3,7 +3,7 @@
   {{ if and (not .IsHome) (not .Draft) (ne .Params.search false) }}
     {{ $sections := slice }}
     {{ range .Ancestors.Reverse }}
-      {{ if and .IsSection (not .Parent.IsHome) }}
+      {{ if and .IsSection (or (not .Parent.IsHome) (in (slice "articles" "newsletter") .Section)) }}
         {{ $sections = $sections | append (dict "title" .Title) }}
       {{ end }}
     {{ end }}

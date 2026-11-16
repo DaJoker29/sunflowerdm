@@ -5,15 +5,19 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>{{ if not .IsHome }}{{ .Title }} | {{ end }}{{ .Site.Title }}</title>
 		{{ with .Description }}<meta name="description" content="{{ . }}">{{ end }}
+		{{ if .Params.noindex }}<meta name="robots" content="noindex">{{ end }}
 		<link rel="canonical" href="{{ .Permalink }}">
 		<link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32.png" | relURL }}">
 		<link rel="icon" type="image/png" sizes="48x48" href="{{ "favicon-48.png" | relURL }}">
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alice&amp;family=Archivo+Narrow:wght@400..700&amp;family=IM+Fell+English+SC&amp;family=Source+Code+Pro&amp;display=optional">
-		<link rel="stylesheet" href="{{ "css/site.css" | relURL }}">
+		{{ if and .IsSection .Params.signupAction }}
+			<link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+		{{ end }}
+		<link rel="stylesheet" href="{{ "css/site.css" | relURL }}?v={{ readFile "static/css/site.css" | sha256 }}">
 		<script src="{{ "js/sidebar.js" | relURL }}?v={{ readFile "static/js/sidebar.js" | sha256 }}" defer blocking="render"></script>
-		<link rel="stylesheet" href="{{ "css/search.css" | relURL }}">
+		<link rel="stylesheet" href="{{ "css/search.css" | relURL }}?v={{ readFile "static/css/search.css" | sha256 }}">
 		<script src="{{ "js/search.js" | relURL }}?v={{ readFile "static/js/search.js" | sha256 }}" defer></script>
 		<script src="{{ "js/heading-links.js" | relURL }}?v={{ readFile "static/js/heading-links.js" | sha256 }}" defer></script>
 	</head>

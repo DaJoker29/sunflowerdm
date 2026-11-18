@@ -6,7 +6,6 @@ description = "Learn when a D&D campaign benefits from a map, what to put on it,
 socialImage = "lots-of-maps.jpg"
 socialImageAlt = "A collection of maps laid out together"
 date = 2026-11-18T00:43:18-08:00
-draft = true
 +++
 
 <!--

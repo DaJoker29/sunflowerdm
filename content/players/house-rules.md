@@ -2,6 +2,7 @@
 title = "House Rules"
 description = "Variant rules, shields, advancement, and overland travel."
 sidebar = true
+sidebarHeadings = true
 weight = 25
 +++
 

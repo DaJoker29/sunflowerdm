@@ -1,0 +1,21 @@
+{{ define "main" }}
+  <header class="intro">
+    <h1>{{ .Title }}</h1>{{ partial "page-badge.html" . }}
+  </header>
+  {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+  {{ with .RegularPagesRecursive.ByDate.Reverse }}
+    <ul class="article-archive" role="list">
+      {{ range . }}
+        <li>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          {{ if not .Date.IsZero }}
+            <span class="article-archive-date"><span aria-hidden="true">– </span><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02 Jan 2006" }}</time></span>
+          {{ end }}
+          {{ if .Draft }}<span class="page-badge article-draft-badge">Draft</span>{{ end }}
+        </li>
+      {{ end }}
+    </ul>
+  {{ else }}
+    <p class="empty">Articles will appear here as they’re published.</p>
+  {{ end }}
+{{ end }}

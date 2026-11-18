@@ -13,11 +13,16 @@
     {{ $updated := "" }}
     {{ with .Lastmod }}{{ if not .IsZero }}{{ $updated = .Format "2006-01-02" }}{{ end }}{{ end }}
     {{ with .GitInfo }}{{ $updated = .CommitDate.Format "2006-01-02" }}{{ end }}
+    {{ $isArticle := and .IsPage (eq .Section "articles") }}
+    {{ $kind := cond .IsSection "Section" (cond $isArticle "Article" "Page") }}
     {{ $entry := dict
       "title" .LinkTitle "description" .Description "text" (.Plain | htmlUnescape)
       "url" .RelPermalink "sections" $sections
-      "kind" (cond .IsSection "Section" "Page") "updated" $updated
+      "kind" $kind "updated" $updated
     }}
+    {{ if and $isArticle .Params.series }}
+      {{ $entry = merge $entry (dict "series" .Params.series) }}
+    {{ end }}
     {{ if in (slice "players" "dm") .Section }}
       {{ with .Site.GetPage (printf "/%s" .Section) }}
         {{ $entry = merge $entry (dict "portal" .Title) }}

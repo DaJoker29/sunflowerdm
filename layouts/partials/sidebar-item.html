@@ -5,8 +5,14 @@
 {{ $ancestor := $current.IsDescendant $item }}
 {{ $portal := and (eq $level 1) (in (slice "/players" "/dm") $item.Path) }}
 {{ $children := and (or $portal (ge $level 2)) (partial "sidebar-children.html" $item) }}
-{{ $disclosure := or $portal $children }}
-{{ $hasOverview := eq $item.Params.sidebarOverview true }}
+{{ $headings := slice }}
+{{ if $item.Params.sidebarHeadings }}
+	{{ $headings = partialCached "sidebar-headings.html" $item.Fragments.Headings $item.Path $item.Language.Lang }}
+{{ end }}
+{{ $hasHeadings := gt (len $headings) 0 }}
+{{ $disclosure := or $portal $children $hasHeadings }}
+{{ $hasOverview := or $hasHeadings (eq $item.Params.sidebarOverview true) }}
+{{ $overviewLabel := cond $hasHeadings "Top of page" "Overview" }}
 {{ $containsCurrent := or $ancestor (and $active $hasOverview) }}
 <li>
 	{{ if $disclosure }}
@@ -15,12 +21,15 @@
 	{{ else }}
 		<a href="{{ $item.RelPermalink }}"{{ if $active }} aria-current="page"{{ end }}>{{ if eq $level 1 }}{{ partial "sidebar-icon.html" $item }}{{ end }}<span class="sidebar-label">{{ $item.LinkTitle }}</span></a>
 	{{ end }}
-	{{ with $children }}
+	{{ if or $children $hasHeadings }}
 		<ul class="sidebar-links">
 			{{ if and $disclosure $hasOverview }}
-				<li><a href="{{ $item.RelPermalink }}" aria-label="{{ $item.LinkTitle }} overview"{{ if $active }} aria-current="page"{{ end }}><span class="sidebar-label">Overview</span></a></li>
+				<li><a href="{{ $item.RelPermalink }}" aria-label="{{ $item.LinkTitle }} {{ $overviewLabel | lower }}"{{ if $active }} aria-current="page"{{ if $hasHeadings }} data-sidebar-page-top{{ end }}{{ end }}><span class="sidebar-label">{{ $overviewLabel }}</span></a></li>
 			{{ end }}
-			{{ range . }}
+			{{ range $headings }}
+				<li><a href="{{ $item.RelPermalink }}#{{ .ID }}" data-sidebar-heading><span class="sidebar-label">{{ .Title | plainify | htmlUnescape }}</span></a></li>
+			{{ end }}
+			{{ range $children }}
 				{{ partial "sidebar-item.html" (dict "item" . "current" $current "level" (add $level 1)) }}
 			{{ end }}
 		</ul>
@@ -30,7 +39,7 @@
 	{{ if $containsCurrent }}
 		<ul class="sidebar-links sidebar-current-preview">
 			<li>
-				<a href="{{ $current.RelPermalink }}" aria-current="page"{{ if $active }} aria-label="{{ $item.LinkTitle }} overview"{{ end }}><span class="sidebar-label">{{ if $active }}Overview{{ else }}{{ $current.LinkTitle }}{{ end }}</span></a>
+				<a href="{{ $current.RelPermalink }}" aria-current="page"{{ if $active }} aria-label="{{ $item.LinkTitle }} {{ $overviewLabel | lower }}"{{ end }}><span class="sidebar-label">{{ if $active }}{{ $overviewLabel }}{{ else }}{{ $current.LinkTitle }}{{ end }}</span></a>
 			</li>
 		</ul>
 	{{ end }}

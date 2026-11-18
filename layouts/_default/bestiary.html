@@ -11,7 +11,10 @@
         <aside class="bestiary-media" aria-label="Creature artwork">
           {{ with $illustration }}
             {{ $image := .Fit "960x960 webp q84" }}
-            <img src="{{ $image.RelPermalink }}" alt="{{ $.Params.imageAlt }}" width="{{ $image.Width }}" height="{{ $image.Height }}">
+            {{ $alt := $.Params.imageAlt }}
+            <a class="image-preview" data-image-preview href="{{ .RelPermalink }}" aria-label="View full-size image{{ with $alt }}: {{ . }}{{ end }}">
+              <img src="{{ $image.RelPermalink }}" alt="{{ $alt }}" width="{{ $image.Width }}" height="{{ $image.Height }}">
+            </a>
           {{ end }}
           {{ with $token }}
             <a class="bestiary-token" href="{{ .RelPermalink }}" download>

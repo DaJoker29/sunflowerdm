@@ -26,6 +26,14 @@ Preview with `hugo server --buildDrafts`. Set `draft = false` when the article i
 
 Use a short, specific `description` for search and link previews. To use an article image in the preview, set `socialImage` to its filename in the article folder and describe it in `socialImageAlt`.
 
+Use the `callout` shortcode for an aside in the article body. The title is optional, and the body accepts Markdown.
+
+```markdown
+{{< callout title="At the table" >}}
+Give players **one landmark** they can use to find their way back.
+{{< /callout >}}
+```
+
 To put an article in a series, add these fields to its front matter:
 
 ```toml

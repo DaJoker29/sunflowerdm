@@ -14,6 +14,7 @@
   const portalValues = defaultSuggestions
     .filter(([token]) => token.startsWith("portal:"))
     .map(([token]) => token.slice("portal:".length));
+  const searchTypes = ["page", "article", "section", "action"];
   const pageSize = 12;
   let limit = pageSize;
   let entries;
@@ -28,7 +29,8 @@
   ]);
 
   const portalKey = (value) => portalAliases.get(filterKey(value)) ?? filterKey(value);
-  const filterToken = /(?:^|\s)(portal|section|type|updated):(?:"([^"]*)"(?=\s|$)|([^"\s]*)(?=\s|$)|("[^"]*))/gi;
+  const filterToken = /(?:^|\s)(portal|section|series|type|updated):(?:"((?:\\.|[^"\\])*)"(?=\s|$)|([^"\s]*)(?=\s|$)|("(?:\\.|[^"\\])*))/gi;
+  const unescapeFilterValue = (value) => value.replace(/\\(["\\])/g, "$1");
 
   function parseQuery(input) {
     const conditions = [];
@@ -36,7 +38,7 @@
     const text = input.replace(
       filterToken,
       (_, key, quoted, bare, incomplete) => {
-        const value = normalize(quoted ?? bare ?? "");
+        const value = normalize(quoted === undefined ? (bare ?? "") : unescapeFilterValue(quoted));
         if (incomplete || !value) {
           error ||= 'Enter a value after ' + key.toLowerCase() + ': and close any quotes.';
           return " ";
@@ -50,11 +52,19 @@
           case "section":
             conditions.push((entry) => entry.sections.some((item) => filterKey(item.title) === filterKey(value)));
             break;
+          case "series": {
+            const series = filterKey(value);
+            conditions.push((entry) => entry.series && filterKey(entry.series) === series);
+            break;
+          }
           case "type":
-            if (!["page", "section", "action"].includes(value)) {
-              error ||= "Use type:page, type:section, or type:action.";
+            if (!searchTypes.includes(value)) {
+              error ||= "Use " + searchTypes.map((type) => "type:" + type).join(", ") + ".";
             }
-            conditions.push((entry) => normalize(entry.kind) === value);
+            conditions.push((entry) => {
+              const kind = normalize(entry.kind);
+              return kind === value || (value === "page" && kind === "article");
+            });
             break;
           case "updated": {
             const range = dateRange(value);
@@ -149,7 +159,7 @@
       entries = (await response.json()).map((entry) => ({
         ...entry,
         normalizedTitle: normalize(entry.title),
-        searchable: normalize([entry.title, entry.description, entry.text, entry.portal,
+        searchable: normalize([entry.title, entry.description, entry.text, entry.portal, entry.series,
           ...entry.sections.map((item) => item.title)].join(" ")),
       }));
       render();
@@ -163,7 +173,7 @@
   function renderSuggestions() {
     const value = query.value;
     const caret = query.selectionStart ?? value.length;
-    const token = [...value.matchAll(/(?:^|\s)([a-z]+(?::(?:"[^"]*"?|[^\s"]*))?)/gi)]
+    const token = [...value.matchAll(/(?:^|\s)([a-z]+(?::(?:"(?:\\.|[^"\\])*"?|[^\s"]*))?)/gi)]
       .find((match) => caret > match.index + match[0].length - match[1].length
         && caret <= match.index + match[0].length);
     let choices = [];
@@ -175,20 +185,23 @@
       end = token.index + token[0].length;
       start = end - token[1].length;
       const prefix = value.slice(start, caret).toLowerCase();
-      const [key, fragment] = prefix.split(":", 2);
+      const colon = prefix.indexOf(":");
+      const key = colon < 0 ? prefix : prefix.slice(0, colon);
+      const fragment = colon < 0 ? undefined : prefix.slice(colon + 1);
       if (fragment === undefined && key.length >= 2) {
         choices = defaultSuggestions.filter(([example]) => example.startsWith(key));
       } else if (fragment !== undefined) {
         const values = {
           portal: portalValues,
           section: (entries ?? []).flatMap((entry) => entry.sections.map((item) => item.title)),
-          type: ["page", "section", "action"],
+          series: (entries ?? []).map((entry) => entry.series).filter(Boolean),
+          type: searchTypes,
           updated: ["7d", "30d", "90d"],
         };
-        const typed = filterKey(fragment.replace(/"/g, ""));
+        const typed = filterKey(unescapeFilterValue(fragment.replace(/^"|"$/g, "")));
         const matches = [...new Set(Object.hasOwn(values, key) ? values[key] : [])]
           .filter((item) => filterKey(item).startsWith(typed));
-        choices = matches.map((item) => [key + ":" + (/\s/.test(item) ? '"' + item + '"' : item), ""])
+        choices = matches.map((item) => [key + ":" + (/[\s"\\]/.test(item) ? JSON.stringify(item) : item), ""])
           .filter(([example]) => example.toLowerCase() !== token[1].toLowerCase());
       }
     }
@@ -208,10 +221,11 @@
       }
       button.addEventListener("click", () => {
         const suffix = query.value.slice(end);
-        const space = /^\s/.test(suffix) ? "" : " ";
+        const needsValue = example.endsWith(":");
+        const space = needsValue || /^\s/.test(suffix) ? "" : " ";
         query.value = query.value.slice(0, start) + example + space + suffix;
         query.focus();
-        const next = start + example.length + 1;
+        const next = start + example.length + (needsValue ? 0 : 1);
         query.setSelectionRange(next, next);
         refresh();
       });
@@ -264,7 +278,7 @@
       highlight(title, entry.title, matchRanges(entry.title, pattern));
       const context = document.createElement("span");
       context.className = "search-result-context";
-      const contextText = [entry.kind, entry.portal, ...entry.sections.map((item) => item.title)]
+      const contextText = [entry.kind, entry.portal, ...entry.sections.map((item) => item.title), entry.series]
         .filter((part) => part && part !== entry.title).join(" · ");
       highlight(context, contextText, matchRanges(contextText, pattern));
       link.append(title, context);

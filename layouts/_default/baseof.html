@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="{{ "css/search.css" | relURL }}?v={{ readFile "static/css/search.css" | sha256 }}">
 		<script src="{{ "js/search.js" | relURL }}?v={{ readFile "static/js/search.js" | sha256 }}" defer></script>
 		<script src="{{ "js/heading-links.js" | relURL }}?v={{ readFile "static/js/heading-links.js" | sha256 }}" defer></script>
+		<script src="{{ "js/image-viewer.js" | relURL }}?v={{ readFile "static/js/image-viewer.js" | sha256 }}" defer></script>
 	</head>
 	<body>
 		<a class="skip-link" href="#main">Skip to content</a>
@@ -37,5 +38,12 @@
 			</main>
 			{{ partial "content-pagination.html" . }}
 		</div>
+		<dialog class="image-viewer" aria-label="Image preview">
+			<div class="image-viewer-controls">
+				<a class="image-viewer-original" target="_blank" rel="noopener">Open original</a>
+				<form method="dialog"><button class="button" type="submit" autofocus>Close</button></form>
+			</div>
+			<div class="image-viewer-content"></div>
+		</dialog>
 	</body>
 </html>

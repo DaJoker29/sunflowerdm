@@ -4,7 +4,6 @@
   </header>
   {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
   {{ $entries := where .RegularPages.ByWeight "Params.sidebar" "ne" true }}
-  {{ if eq .Section "articles" }}{{ $entries = .RegularPagesRecursive.ByDate.Reverse }}{{ end }}
   {{ if $entries }}
     <ul class="entry-list" aria-label="Entries">
       {{ range $entries }}{{ partial "entry.html" . }}{{ end }}

@@ -44,7 +44,7 @@ function restoreSidebarScroll() {
     // The active page can still be revealed when storage is unavailable.
   }
 
-  const currentLink = sidebar.querySelector('a[aria-current="page"]:not(.sidebar-current-preview a)');
+  const currentLink = sidebar.querySelector("a[aria-current]:not(.sidebar-current-preview a)");
   if (!currentLink) return;
 
   const viewport = scrollport.getBoundingClientRect();
@@ -69,6 +69,22 @@ function saveSidebar() {
 }
 
 restoreSidebar();
+const pageTopLink = sidebar.querySelector("[data-sidebar-page-top]");
+if (pageTopLink) {
+  const headings = [...pageTopLink.closest("details").querySelectorAll("[data-sidebar-heading]")];
+  const selectHeading = () => {
+    const current = headings.find((link) => link.hash === window.location.hash);
+    for (const link of headings) {
+      if (link === current) link.setAttribute("aria-current", "location");
+      else link.removeAttribute("aria-current");
+    }
+    if (current) pageTopLink.removeAttribute("aria-current");
+    else pageTopLink.setAttribute("aria-current", "page");
+  };
+  selectHeading();
+  window.addEventListener("hashchange", selectHeading);
+  window.addEventListener("pageshow", selectHeading);
+}
 restoreSidebarScroll();
 window.addEventListener("pagehide", () => {
   saveSidebar();
@@ -112,7 +128,7 @@ function highlightSidebarLink(link) {
 
   const destination = pagePath(link);
   highlightedLink = sidebarLinks.find((candidate) =>
-    candidate.origin === link.origin && pagePath(candidate) === destination &&
+    candidate.origin === link.origin && pagePath(candidate) === destination && candidate.hash === link.hash &&
     !candidate.closest("details:not([open])") && candidate.getClientRects().length &&
     getComputedStyle(candidate).visibility === "visible"
   );

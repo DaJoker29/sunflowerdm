@@ -1,0 +1,11 @@
+{{ $headings := slice }}
+{{ range . }}
+  {{ if ne . nil }}
+    {{ if and (eq .Level 2) .ID }}
+      {{ $headings = $headings | append . }}
+    {{ else if lt .Level 2 }}
+      {{ $headings = $headings | append (partial "sidebar-headings.html" .Headings) }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return $headings }}

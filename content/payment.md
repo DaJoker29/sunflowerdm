@@ -2,6 +2,7 @@
 title = "Make a Payment"
 description = "Pay for a session with Stripe or Venmo."
 layout = 'payment'
+noindex = true
 
 [params]
   stripeURL = 'https://buy.stripe.com/8wM17l2bbbgQcla5kl'

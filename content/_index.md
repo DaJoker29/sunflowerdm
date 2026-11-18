@@ -1,6 +1,7 @@
 +++
 title = "SunflowerDM"
-description = "Campaign worlds, player guides, and tools for your D&D table."
+description = "Explore the world of Pavv, find D&D campaign guides and open games, and browse worldbuilding articles, roll tables, and tools for Dungeon Masters."
+seoTitle = "D&D Campaigns, Worldbuilding, and DM Tools"
 
 [params]
   heroHeading = "Greetings!"

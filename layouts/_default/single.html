@@ -7,5 +7,8 @@
 		{{ end }}
 	</header>
 	<div class="prose">{{ .Content }}</div>
+	{{ if and .Params.signupAction .Params.recaptchaSiteKey }}
+		{{ partial "newsletter-signup.html" . }}
+	{{ end }}
 </article>
 {{ end }}

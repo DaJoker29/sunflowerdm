@@ -1,6 +1,7 @@
 +++
 title = "Start Here"
-description = "The adventure begins..."
+description = "New to a SunflowerDM campaign? Start with the player guide and find the rules and setting material you need for your first session."
+seoTitle = "Start Here for Players"
 weight = 1
 sidebar = true
 aliases = ['/players/']

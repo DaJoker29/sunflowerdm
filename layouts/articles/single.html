@@ -1,11 +1,36 @@
 {{ define "main" }}
-  <article>
-    <header class="intro">
-      <h1>{{ .Title }}</h1>{{ partial "page-badge.html" . }}
-      {{ if not .Date.IsZero }}
-        <p class="article-date"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time></p>
-      {{ end }}
-    </header>
-    <div class="prose">{{ .Content }}</div>
-  </article>
+<article>
+	<header class="intro">
+		{{ $series := .Params.series }}
+		{{ $hasDate := not .Date.IsZero }}
+		{{ $readingTime := .ReadingTime }}
+		{{ if or $series $hasDate $readingTime }}
+			<p class="article-meta">
+				{{ with $series }}<span>{{ . }}</span>{{ end }}
+				{{ if $hasDate }}<time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>{{ end }}
+				{{ with $readingTime }}<span>{{ . }} min read</span>{{ end }}
+			</p>
+		{{ end }}
+		<h1>{{ .Title }}</h1>{{ partial "page-badge.html" . }}
+	</header>
+	{{ if $series }}
+		{{ $current := . }}
+		{{ $parts := partialCached "article-series-pages.html" . .Language.Lang $series }}
+		<nav class="article-series" aria-labelledby="article-series-heading">
+			<h2 id="article-series-heading">In this series</h2>
+			<ol>
+				{{ range $parts }}
+					<li>
+						{{ if eq . $current }}
+							<span aria-current="page">{{ .LinkTitle }}</span>
+						{{ else }}
+							<a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+						{{ end }}
+					</li>
+				{{ end }}
+			</ol>
+		</nav>
+	{{ end }}
+	<div class="prose">{{ .Content }}</div>
+</article>
 {{ end }}

@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://sfdm.zerodaedal.us/'
 languageCode = 'en-us'
 title = 'SunflowerDM'
 disableKinds = ['taxonomy', 'term', 'RSS']
@@ -9,6 +9,7 @@ enableGitInfo = true
   lastmod = ['lastmod', 'date', 'publishDate', 'expiryDate']
 
 [params]
+  authorName = 'DeWitt (DJ)'
   patreonURL = 'https://patreon.com/sunflowerdm?utm_medium=unknown&utm_source=join_link&utm_campaign=creatorshare_creator&utm_content=copyLink'
   repositoryURL = 'https://github.com/DaJoker29/sunflowerdm'
 

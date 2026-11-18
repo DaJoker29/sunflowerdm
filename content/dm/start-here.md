@@ -1,5 +1,6 @@
 +++
 title = "Start Here"
+seoTitle = "Start Here for Dungeon Masters"
 description = "Find generators, roll tables, and statblocks for your next session."
 weight = 1
 sidebar = true

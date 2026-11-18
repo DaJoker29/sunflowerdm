@@ -1,6 +1,6 @@
 +++
 title = "Building Cities for Your World"
-description = "A How-To Guide"
+description = "A guide to building cities for your D&D setting and giving players places worth exploring."
 date = 2026-11-15T18:11:25-08:00
 draft = true
 +++

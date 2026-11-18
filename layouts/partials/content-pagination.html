@@ -1,40 +1,34 @@
 {{ $current := . }}
-{{ if in (slice "players" "dm") .Section }}
+{{ if or (in (slice "players" "dm") .Section) (and .IsPage (eq .Section "articles")) }}
   {{ with .Site.GetPage (printf "/%s" .Section) }}
     {{ $pages := partialCached "content-page-order.html" . .Path .Language.Lang }}
-    {{ $previous := false }}
-    {{ $next := false }}
-    {{ range $index, $page := $pages }}
-      {{ if eq $page $current }}
-        {{ if gt $index 0 }}
-          {{ $previous = index $pages (sub $index 1) }}
-        {{ end }}
-        {{ if lt (add $index 1) (len $pages) }}
-          {{ $next = index $pages (add $index 1) }}
-        {{ end }}
-        {{ break }}
-      {{ end }}
+    {{ $byDate := partial "content-pagination-neighbors.html" (dict "pages" $pages "current" $current) }}
+    {{ $seriesLinks := dict }}
+    {{ if and (eq $current.Section "articles") $current.Params.series }}
+      {{ $seriesPages := partialCached "article-series-pages.html" $current $current.Language.Lang $current.Params.series }}
+      {{ $seriesLinks = partial "content-pagination-neighbors.html" (dict "pages" $seriesPages "current" $current) }}
     {{ end }}
-    {{ if or $previous $next }}
+    {{ $paired := or (ne $seriesLinks.previous nil) (ne $seriesLinks.next nil) }}
+    {{ if or $paired $byDate.previous $byDate.next }}
+      {{ $links := slice
+        (dict "page" $byDate.previous "direction" "previous" "slot" "outer-previous" "label" (cond $paired "Older article" "Previous") "rel" "prev")
+        (dict "page" $seriesLinks.previous "direction" "previous" "slot" "inner-previous" "label" "Previous in series")
+        (dict "page" $seriesLinks.next "direction" "next" "slot" "inner-next" "label" "Next in series")
+        (dict "page" $byDate.next "direction" "next" "slot" "outer-next" "label" (cond $paired "Newer article" "Next") "rel" "next")
+      }}
       <nav class="content-pagination" aria-label="Previous and next pages">
-        <div class="content-pagination-inner">
-          {{ with $previous }}
-            <a class="content-pagination-previous" href="{{ .RelPermalink }}" rel="prev">
-              <span class="content-pagination-arrow" aria-hidden="true">‹</span>
-              <span>
-                <span class="content-pagination-label">Previous</span>
-                <span class="content-pagination-title">{{ .LinkTitle }}</span>
-              </span>
-            </a>
-          {{ end }}
-          {{ with $next }}
-            <a class="content-pagination-next" href="{{ .RelPermalink }}" rel="next">
-              <span class="content-pagination-arrow" aria-hidden="true">›</span>
-              <span>
-                <span class="content-pagination-label">Next</span>
-                <span class="content-pagination-title">{{ .LinkTitle }}</span>
-              </span>
-            </a>
+        <div class="content-pagination-inner{{ if $paired }} content-pagination-paired{{ end }}">
+          {{ range $links }}
+            {{ $link := . }}
+            {{ with $link.page }}
+              <a class="content-pagination-{{ $link.direction }}" href="{{ .RelPermalink }}" data-pagination-slot="{{ $link.slot }}"{{ with $link.rel }} rel="{{ . }}"{{ end }}>
+                <span class="navigation-arrow content-pagination-arrow" aria-hidden="true">{{ if eq $link.direction "previous" }}‹{{ else }}›{{ end }}</span>
+                <span>
+                  <span class="content-pagination-label">{{ $link.label }}</span>
+                  <span class="content-pagination-title">{{ .LinkTitle }}</span>
+                </span>
+              </a>
+            {{ end }}
           {{ end }}
         </div>
       </nav>

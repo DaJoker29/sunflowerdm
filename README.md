@@ -6,7 +6,9 @@ A Hugo site for SunflowerDM’s public D&D campaigns, tools, and games.
 
 Open this folder and run `hugo server` in the integrated terminal. Open the address Hugo prints. Add `--buildDrafts` to preview drafts.
 
-The footer uses Hugo’s Git info to show the last commit that touched each page’s source file. Commit new pages to show their footer date and hash. For deployment, build with `hugo` from a checkout with full Git history, then deploy the generated `public/` directory after setting `baseURL` in `hugo.toml`.
+The footer uses Hugo’s Git info to show the last commit that touched each page’s source file. Commit new pages to show their footer date and hash. For deployment, build with `hugo` from a checkout with full Git history and deploy the generated `public/` directory. Serve `404.html` with an HTTP 404 response for missing URLs.
+
+The production `baseURL` in `hugo.toml` controls canonical links, social previews, and the sitemap. After deployment, submit `sitemap.xml` in Google Search Console. When moving to a new domain, update `baseURL`, permanently redirect each old URL to the corresponding new URL at the host, and submit the sitemap for the new domain.
 
 ## Update the site
 
@@ -21,6 +23,17 @@ The footer uses Hugo’s Git info to show the last commit that touched each page
 Run `hugo new content --kind article articles/my-article` from the site folder. Edit the title, short description, and date in `content/articles/my-article/index.md`, then write the article in Markdown below the front matter. Keep any images beside `index.md` and reference them by filename.
 
 Preview with `hugo server --buildDrafts`. Set `draft = false` when the article is ready for the next site build. Published articles appear in the Articles archive and command palette.
+
+Use a short, specific `description` for search and link previews. To use an article image in the preview, set `socialImage` to its filename in the article folder and describe it in `socialImageAlt`.
+
+To put an article in a series, add these fields to its front matter:
+
+```toml
+series = "Start with the Map"
+seriesOrder = 1
+```
+
+Use the same series name for every installment and give each its own order number. The contents list and the inner footer links follow that order. The outer footer links browse all articles by publication date. Installments without a number appear after the numbered parts, in date order. Draft installments appear only in builds that include drafts.
 
 ### Add a Bestiary entry
 

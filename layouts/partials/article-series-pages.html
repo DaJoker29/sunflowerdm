@@ -1,0 +1,9 @@
+{{ $pages := slice }}
+{{ $series := .Params.series }}
+{{ with .Site.GetPage "/articles" }}
+  {{ $members := where .RegularPagesRecursive.ByDate "Params.series" "eq" $series }}
+  {{ $ordered := sort (where $members "Params.seriesorder" "ne" nil) "Params.seriesorder" }}
+  {{ $withoutOrder := where $members "Params.seriesorder" "eq" nil }}
+  {{ $pages = $ordered | append $withoutOrder }}
+{{ end }}
+{{ return $pages }}

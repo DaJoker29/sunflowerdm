@@ -1,0 +1,69 @@
+{{- $headline := .Params.seoTitle | default .Title -}}
+{{- $title := printf "%s | %s" $headline .Site.Title -}}
+{{- if .IsHome -}}
+  {{- $title = printf "%s | %s" .Site.Title $headline -}}
+{{- end -}}
+{{- if eq .Kind "404" -}}
+  {{- $title = printf "Page not found | %s" .Site.Title -}}
+{{- end -}}
+<title>{{ $title }}</title>
+{{ if or .Params.noindex .Draft (eq .Kind "404") }}
+  <meta name="robots" content="noindex">
+{{ end }}
+{{ if ne .Kind "404" }}
+  {{ $description := .Description }}
+  {{ if not $description }}
+    {{ $plain := .Plain | htmlUnescape | replaceRE `\s+` " " }}
+    {{ $description = trim $plain " " | truncate 160 }}
+  {{ end }}
+  {{ $isArticle := and .IsPage (eq .Section "articles") }}
+  {{ $image := false }}
+  {{ $imageAlt := .Params.socialImageAlt | default .Params.imageAlt }}
+  {{ with (.Params.socialImage | default .Params.image) }}
+    {{ $image = $.Resources.Get . }}
+  {{ end }}
+  {{ $socialImage := $image }}
+  {{ if not $socialImage }}
+    {{ with resources.Get "images/sunflower.png" }}
+      {{ $socialImage = .Fill "1200x630 Center jpg q85" }}
+      {{ $imageAlt = "A golden sunflower against a deep green background" }}
+    {{ end }}
+  {{ end }}
+  <link rel="canonical" href="{{ .Permalink }}">
+  {{ with $description }}<meta name="description" content="{{ . }}">{{ end }}
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+  <meta property="og:title" content="{{ $title }}">
+  <meta property="og:type" content="{{ if $isArticle }}article{{ else }}website{{ end }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  {{ with $description }}<meta property="og:description" content="{{ . }}">{{ end }}
+  {{ with $socialImage }}
+    <meta property="og:image" content="{{ .Permalink }}">
+    {{ with $imageAlt }}<meta property="og:image:alt" content="{{ . }}">{{ end }}
+    <meta name="twitter:card" content="summary_large_image">
+  {{ end }}
+  {{ if .IsHome }}
+    {{ $website := dict "@context" "https://schema.org" "@type" "WebSite" "name" .Site.Title "url" .Permalink }}
+    <script type="application/ld+json">{{ $website | jsonify | safeJS }}</script>
+  {{ else if $isArticle }}
+    {{ $author := dict "@type" "Person" "name" .Site.Params.authorName }}
+    {{ with .Site.GetPage "/credits" }}
+      {{ $author = merge $author (dict "url" .Permalink) }}
+    {{ end }}
+    {{ $article := dict "@context" "https://schema.org" "@type" "BlogPosting" "headline" .Title "mainEntityOfPage" .Permalink "author" $author }}
+    {{ with $description }}
+      {{ $article = merge $article (dict "description" .) }}
+    {{ end }}
+    {{ $published := .PublishDate }}
+    {{ if $published.IsZero }}{{ $published = .Date }}{{ end }}
+    {{ if not $published.IsZero }}
+      {{ $article = merge $article (dict "datePublished" ($published.Format "2006-01-02T15:04:05Z07:00")) }}
+      {{ if .Lastmod.After $published }}
+        {{ $article = merge $article (dict "dateModified" (.Lastmod.Format "2006-01-02T15:04:05Z07:00")) }}
+      {{ end }}
+    {{ end }}
+    {{ with $image }}
+      {{ $article = merge $article (dict "image" .Permalink) }}
+    {{ end }}
+    <script type="application/ld+json">{{ $article | jsonify | safeJS }}</script>
+  {{ end }}
+{{ end }}

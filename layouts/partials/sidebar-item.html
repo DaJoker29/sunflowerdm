@@ -11,7 +11,7 @@
 <li>
 	{{ if $disclosure }}
 		<details class="sidebar-submenu"{{ if $containsCurrent }} open data-sidebar-current-branch{{ end }}{{ if not $portal }} name="sidebar-{{ $item.Parent.RelPermalink | default $item.Parent.Path }}"{{ end }} data-sidebar-section="{{ $item.RelPermalink | default $item.Path }}">
-			<summary>{{ if $portal }}{{ partial "sidebar-icon.html" $item }}{{ end }}<span class="sidebar-label">{{ $item.LinkTitle }}</span><span class="sidebar-chevron" aria-hidden="true"></span></summary>
+			<summary>{{ if $portal }}{{ partial "sidebar-icon.html" $item }}{{ end }}<span class="sidebar-label">{{ $item.LinkTitle }}</span><span class="navigation-arrow sidebar-chevron" aria-hidden="true">›</span></summary>
 	{{ else }}
 		<a href="{{ $item.RelPermalink }}"{{ if $active }} aria-current="page"{{ end }}>{{ if eq $level 1 }}{{ partial "sidebar-icon.html" $item }}{{ end }}<span class="sidebar-label">{{ $item.LinkTitle }}</span></a>
 	{{ end }}

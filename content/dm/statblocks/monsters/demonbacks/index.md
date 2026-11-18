@@ -1,5 +1,6 @@
 +++
 title = "Demonbacks"
+seoTitle = "Feral and Corrupted Demonback Statblocks"
 description = "Feral and Corrupted Demonback statblocks, encounter recommendations, and VTT tokens."
 layout = "bestiary"
 

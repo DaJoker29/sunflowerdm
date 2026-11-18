@@ -1,5 +1,6 @@
 +++
 title = "Demonbacks"
+seoTitle = "Demonbacks in the Pavv Bestiary"
 description = "Sparking gorillas born of fiendish experimentation that roam the primal forests of Pavv."
 layout = "bestiary"
 

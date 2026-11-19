@@ -3,6 +3,24 @@
     <h1>{{ .Title }}</h1>{{ partial "page-badge.html" . }}
   </header>
   {{ with .Content }}<div class="prose">{{ . }}</div>{{ end }}
+  {{ $series := slice }}
+  {{ range .RegularPagesRecursive }}
+    {{ with .Params.series }}{{ $series = $series | append . }}{{ end }}
+  {{ end }}
+  {{ with $series | uniq | sort }}
+    <section class="article-archive-series" aria-labelledby="archive-series-heading">
+      <h2 id="archive-series-heading">Series</h2>
+      <ul class="article-archive" role="list">
+      {{ range . }}
+        {{ $name := . }}
+        {{ $members := where $.RegularPagesRecursive "Params.series" "eq" $name }}
+        {{ $parts := partialCached "article-series-pages.html" (index $members 0) $.Language.Lang $name }}
+        <li><a href="{{ (index $parts 0).RelPermalink }}">{{ $name }}</a></li>
+      {{ end }}
+      </ul>
+    </section>
+    <h2>All articles</h2>
+  {{ end }}
   {{ with .RegularPagesRecursive.ByDate.Reverse }}
     <ul class="article-archive" role="list">
       {{ range . }}

@@ -1,6 +1,6 @@
 +++
 title = "Getting Lost in the Map"
-series = "Start with the Map, a Series"
+series = "Start with the Map"
 seriesOrder = 1
 description = "Learn when a D&D campaign benefits from a map, what to put on it, and how to give your players enough detail to make decisions."
 socialImage = "lots-of-maps.jpg"

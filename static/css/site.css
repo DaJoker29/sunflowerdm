@@ -1027,6 +1027,9 @@ ul.update-list {
 .article-archive li + li {
   margin-block-start: 0.35rem;
 }
+.article-archive-series {
+  margin-block-end: 2rem;
+}
 .article-archive-date {
   color: var(--muted);
   white-space: nowrap;

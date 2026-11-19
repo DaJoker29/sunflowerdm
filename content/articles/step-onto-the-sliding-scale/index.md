@@ -1,6 +1,6 @@
 +++
 title = "Step Onto the Sliding Scale"
-series = "Start with the Map, a Series"
+series = "Start with the Map"
 seriesOrder = 2
 description = "Learn some of the different types of maps used in D&D campaigns and how they are best put to use."
 date = 2026-11-18T01:42:48-08:00
@@ -24,11 +24,11 @@ I say it is the key map because it is usually a starting point. It is a great pl
 
 Now, it should be noted that I typically sandbox/open-world campaigns where players can choose where they wish to go and what objectives they wish to pursue. This is my favorite way of playing D&D. So I design my maps with that in mind. Hence, with planning and orientation being the main purpose behind this map, I strive to make a few things clear when building my maps.
 
-**Cities & Roads.** Cities in my world are havens of (relative) safety. The wilds are known to hold countless dangers, so knowing what pathways connect them give the characters opportunity to prepare for the threats ahead.
+- **Cities & Roads.** Cities in my world are havens of (relative) safety. The wilds are known to hold countless dangers, so knowing what pathways connect them give the characters opportunity to prepare for the threats ahead.
 
-**Regions/Biomes.** It's useful to use names and details to convey what type of enviroment each region represents. At a glance, players can intuit that the White Sand Wilds is a desert and they begin to plan accordingly.
+- **Regions/Biomes.** It's useful to use names and details to convey what type of enviroment each region represents. At a glance, players can intuit that the White Sand Wilds is a desert and they begin to plan accordingly.
 
-**Alternate Routes.** Let's say the players wish to go from Solara to East Naganis. The standard route is a weeks long trek through the Deadlands, the Trickster's Green, and partways through the Pale Moon Woods. Or, they could scale the mountains between and cut a straight line through the woods. These choices bring life and shape to a campaign.
+- **Alternate Routes.** Let's say the players wish to go from Solara to East Naganis. The standard route is a weeks long trek through the Deadlands, the Trickster's Green, and partways through the Pale Moon Woods. Or, they could scale the mountains between and cut a straight line through the woods. These choices bring life and shape to a campaign.
 
 {{< callout title="Quick Note about Worldbuilding and Map-Making" >}}
 
@@ -50,5 +50,4 @@ I find these maps are ever-evolving. I've lost track of how many iterations on t
 
 ## Coming up in Part 3
 
-Next we'll get more granular in with regional maps.
-
+Next we'll get more granular with regional maps.

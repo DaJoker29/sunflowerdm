@@ -43,6 +43,12 @@ seriesOrder = 1
 
 Use the same series name for every installment and give each its own order number. The contents list and the inner footer links follow that order. The outer footer links browse all articles by publication date. Installments without a number appear after the numbered parts, in date order. Draft installments appear only in builds that include drafts.
 
+### Add a timeline event
+
+Run `hugo new content --kind timeline-event players/pavv/atlas/timeline/my-event.md`. Set `age` to `creation`, `discovery`, or `pilgrimage`. Set `timelineDate` to the date label readers should see and `weight` to its order within that age. Lower numbers appear first. Write the event in Markdown below the front matter, then set `draft = false` to publish it on the timeline.
+
+Each event is rendered inside the timeline. Its `_build` settings keep it out of site-wide page lists. Edit the age names, ranges, and order in `content/players/pavv/atlas/timeline/_index.md`.
+
 ### Add a Bestiary entry
 
 Create a Bestiary entry with `hugo new content --kind bestiary players/pavv/bestiary/entry-name`. Put the optional illustration and token beside the generated `index.md` and set their filenames in the front matter. Remove `draft = true` when the entry is ready. Keep private DM notes outside the site source.

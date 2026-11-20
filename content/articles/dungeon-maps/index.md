@@ -1,10 +1,9 @@
 +++
 title = "Using Dungeon Maps"
-series = "Start with the Map"
+series = "Starting with the Map"
 seriesOrder = 5
 description = ""
 date = 2026-11-18T18:47:03-08:00
-draft = true
 +++
 
 <!--
@@ -13,16 +12,22 @@ Hugo displays the title above your text. Put any images beside index.md and
 reference them with ![A short description](filename.jpg).
 -->
 
-### Dungeon Maps
+{{< figure src="tomb.png" alt="Dungeon map" caption="Credit: Procgen Arcana" >}}
 
-In the past I've avoided running dungeons because I find just the thought of them claustrophobic and unsettling. However, sometimes that's exactly what you want and in those moments there is no better solution than a dungeon. And when done properly, they can provide a fantastic experience that'll leave your players traumatized for years.
+In my opinion, dungeons are meant to be scary, traumatizing even. Which is why I don't show dungeon maps to players, I let them build it in their imagination. Again, we want the players to feel immersed in the theater of the mind, not treating it like a board game.
 
-Dungeons in my games are meant to be spooky experiences. To accommodate this, I try to use theater of the mind as much as possible when running them. With the right words and subtle descriptions, the player will build a much more convincing hellscape in their mind's eye than you can on paper or screen.
+Having said that, having a map and a key are integral to providing that thrilling experience. When I play in Roll20, I show the players a blank screen with some kind of visual and a blank area collective notes. Meanwhile, I use a map like the one above and track their progress with tokens. I'll also mark monsters and NPCs movements around there as well.
 
-The maps I do use are purely for tracking progress and guiding my narration. I use them in conjunction with a detailed key to let me know what each room contains. The contents of the room and the entrances/exits are the key elements needed for running dungeons.
+In addition, there is usually a key which offers me a more detailed description of each room, a boxed description I can read upon entering, and any notes about loot or traps or other interactions.
 
 Where as regional maps require a good amount of worldbuilding, these require a good amount of imagination. The devil is in the details: most of which you aren't going to be able to put on a map. So having a secondary document to track those details is vital.
 
-## Coming Up in Part II
+## Conclusion
 
-Now that you've heard the "why" and the "what", I will soon be going over the "how". I'll dive into the many tools and techniques I've used for sourcing maps. (Note: 75% of the maps shown here were procedurally generated.) I'll also give my recommendations on what I currently use for each type of map.
+Hopefully, you've enjoyed this series on maps and taken away something that might benefit your games. Since I start with a quote from an author, I'll finish with a quote from an author:
+
+> Two roads diverged in a wood, and I—
+> I took the one less traveled by,
+> And that has made all the difference.
+>
+> — Robert Frost

@@ -1,0 +1,51 @@
+{{ define "main" }}
+  {{ $timeline := . }}
+  {{ $ageIds := slice }}
+  {{ range .Params.ages }}{{ $ageIds = $ageIds | append .id }}{{ end }}
+  {{ range .RegularPages }}
+    {{ if not (in $ageIds .Params.age) }}
+      {{ errorf "Timeline event %s must specify an age from %s" .File.Path (delimit $ageIds ", ") }}
+    {{ end }}
+  {{ end }}
+  <article class="timeline-page">
+    <header class="intro">
+      <h1>{{ .Title }}</h1>{{ partial "page-badge.html" . }}
+      {{ with .Content }}<div class="prose timeline-date-key" aria-label="Timeline date key">{{ . }}</div>{{ end }}
+    </header>
+    <nav class="timeline-ages" aria-label="Jump to an age">
+      {{ range .Params.ages }}
+        <a class="timeline-age-{{ .id }}" href="#age-{{ .id }}">
+          <span class="timeline-age-link-icon" aria-hidden="true">{{ partial "timeline-age-icon.html" .icon }}</span>
+          <span><span class="timeline-age-link-label">{{ .label }}</span><span class="timeline-age-link-title">{{ .title }}</span></span>
+        </a>
+      {{ end }}
+    </nav>
+    <div class="pavv-timeline">
+      {{ range $index, $age := .Params.ages }}
+        <section class="timeline-age timeline-age-{{ $age.id }}{{ if modBool $index 2 }} timeline-age-right{{ else }} timeline-age-left{{ end }}" aria-labelledby="age-{{ $age.id }}">
+          <header class="timeline-age-heading">
+            <p>{{ $age.label }}</p>
+            <h2 id="age-{{ $age.id }}">{{ $age.title }}</h2>
+            <p>{{ $age.dates }}</p>
+          </header>
+          <div class="timeline-age-body">
+            <div class="timeline-age-emblem" aria-hidden="true">
+              <span>{{ partial "timeline-age-icon.html" $age.icon }}</span>
+            </div>
+            <ol class="timeline-events" role="list">
+              {{ range where $timeline.RegularPages.ByWeight "Params.age" $age.id }}
+                <li class="timeline-event" id="event-{{ .File.ContentBaseName | urlize }}">
+                  {{ with .Params.timelineDate }}<p class="timeline-event-date">{{ . }}</p>{{ end }}
+                  <h3>{{ .Title }}{{ if .Draft }} <span class="page-badge article-draft-badge">Draft</span>{{ end }}</h3>
+                  <div class="prose">{{ .Content }}</div>
+                </li>
+              {{ else }}
+                <li class="timeline-event"><p class="empty">Events will appear here as they’re published.</p></li>
+              {{ end }}
+            </ol>
+          </div>
+        </section>
+      {{ end }}
+    </div>
+  </article>
+{{ end }}

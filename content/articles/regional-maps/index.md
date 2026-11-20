@@ -1,6 +1,6 @@
 +++
-title = "Using Regional Maps"
-series = "Start with the Map"
+title = "Regional Maps"
+series = "Starting with the Map"
 seriesOrder = 3
 description = ""
 date = 2026-11-18T05:10:29-08:00

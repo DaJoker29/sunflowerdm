@@ -1,6 +1,6 @@
 +++
 title = "Using City Maps and Gazetteers"
-series = "Start with the Map"
+series = "Starting with the Map"
 seriesOrder = 4
 description = ""
 date = 2026-11-18T17:54:31-08:00

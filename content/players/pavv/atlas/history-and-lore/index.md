@@ -9,7 +9,13 @@ sidebar = true
 
 **P.O. — Post-Obree**
 
-[![Illustration from the History and Lore chapter](ages-of-pavv.png)](ages-of-pavv.png)
+[Explore the timeline of Pavv]({{< relref "/players/pavv/atlas/timeline" >}})
+
+{{< figure
+  src="ages-of-pavv.svg"
+  alt="The Three Ages of Pavv: Creation from approximately 2,500 B.D. to 7 P.O., Discovery from 7 to 2356 P.O., and Pilgrimage from 2356 P.O. to the present."
+  caption="The Three Ages of Pavv, shown in order rather than to scale."
+>}}
 
 ## The First Age — Era of Creation (approx. 2,500 B.D. — 7 P.O.)
 

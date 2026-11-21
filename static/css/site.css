@@ -834,6 +834,53 @@ ul.update-list {
   display: block;
   color: var(--muted);
 }
+.brand-color-copy {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-left: 0.4rem;
+  padding: 0.2rem 0;
+  border: 0;
+  border-radius: 0.15rem;
+  background: transparent;
+  color: var(--sage);
+  font: 0.8rem/1.4 var(--mono);
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+.brand-color-copy:hover,
+.brand-color-copy[data-copied] {
+  color: var(--gold);
+}
+.brand-color-copy:focus-visible {
+  outline: 2px solid var(--sage);
+  outline-offset: 3px;
+}
+.brand-color-copy code {
+  margin: 0;
+  color: inherit;
+  font: inherit;
+}
+.brand-color-copy[data-copied]::after {
+  content: "Copied";
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  padding: 0.15rem 0.4rem;
+  border-radius: 0.2rem;
+  background: var(--forest);
+  color: var(--gold);
+  font: 0.8rem/1.4 var(--interface);
+}
+.brand-copy-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 .brand-fonts {
   margin: 0;
 }

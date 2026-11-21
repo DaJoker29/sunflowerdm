@@ -2,7 +2,7 @@
 title = "Battle Maps"
 series = "Starting with the Map"
 seriesOrder = 6
-description = ""
+description = "Choose battle maps that clarify the action, add terrain and hazards, and leave room for narrative objectives, with tips on finding or making your own."
 date = 2026-11-20T18:30:41-08:00
 +++
 

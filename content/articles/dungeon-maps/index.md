@@ -2,7 +2,7 @@
 title = "Dungeon Maps"
 series = "Starting with the Map"
 seriesOrder = 5
-description = ""
+description = "Use hidden dungeon maps and detailed room keys to run theater-of-the-mind exploration, track movement, and give players clear choices through narration."
 date = 2026-11-18T18:47:03-08:00
 +++
 

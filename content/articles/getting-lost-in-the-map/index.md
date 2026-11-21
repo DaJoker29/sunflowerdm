@@ -2,7 +2,7 @@
 title = "Getting Lost in the Map"
 series = "Starting with the Map"
 seriesOrder = 1
-description = "Learn when a D&D campaign benefits from a map, what to put on it, and how to give your players enough detail to make decisions."
+description = "Maps give players the context to make meaningful choices. Explore when your TTRPG needs a map, what purpose it serves, and how much detail it needs."
 socialImage = "lots-of-maps.jpg"
 socialImageAlt = "A collection of maps laid out together"
 date = 2026-11-18T00:43:18-08:00

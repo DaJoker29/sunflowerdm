@@ -2,7 +2,7 @@
 title = "City Maps and Gazetteers"
 series = "Starting with the Map"
 seriesOrder = 4
-description = ""
+description = "Pair simple city maps with useful gazetteers. Bring districts to life through layered history and organize the services and establishments players need."
 date = 2026-11-18T17:54:31-08:00
 +++
 

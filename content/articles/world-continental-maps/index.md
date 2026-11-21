@@ -2,7 +2,7 @@
 title = "World & Continental Maps"
 series = "Starting with the Map"
 seriesOrder = 2
-description = "Learn some of the different types of maps used in D&D campaigns and how they are best put to use."
+description = "Use world and continental maps to orient your players, plan travel, and shape your setting, with practical map-making tools and the simple beans method."
 date = 2026-11-18T01:42:48-08:00
 +++
 

@@ -2,7 +2,7 @@
 title = "Regional Maps"
 series = "Starting with the Map"
 seriesOrder = 3
-description = ""
+description = "Build regional maps that invite exploration with intriguing landmarks, evolving locations, and separate player and DM maps suited to your sandbox campaign."
 date = 2026-11-18T05:10:29-08:00
 +++
 

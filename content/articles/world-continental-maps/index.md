@@ -53,9 +53,9 @@ Now, Inkarnate isn't the only option. I've seen people use other softeware like 
 
 {{<callout title="The Beans Method">}}
 
-1. Get some paper and a bag of uncooked beans.
-2. Scatter a handful of said beans onto said paper.
-3. Scoot the beans around with your fingertips to create interesting shapes.
+1. Get some paper and a bag of uncooked beans or uncooked rice.
+2. Scatter a handful of said beans/rice onto said paper.
+3. Scoot the beans/rice around with your fingertips to create interesting shapes.
 4. Trace around these shapes with a pen or pencil.
 5. These shapes become the outlines for your landmasses.
 
@@ -72,4 +72,4 @@ While I love using Inkarnate, hand-drawn maps still hold a cherished space in my
 
 ## Coming up in Part 3
 
-Next we'll get into how to use regional maps as frameworks for exploration and the tools to build them, like Worldographer and Inkarnate.
+Next we'll get into how to use regional maps as frameworks for exploration and the tools to build them, like Worldographer and Procgen Arcana.
